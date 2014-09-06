@@ -38,21 +38,8 @@ docker \
 At this point you'll be dropped in the docker container with access to the service-discovery-vnext folder. Finally:
 
 ```
-# This is in lieu of `kpm restore` below:
-( 
-  mkdir -p ~/.kpm/packages/etcetera/0.5.0/ \
-  && cd ~/.kpm/packages/etcetera/0.5.0/ \
-  && curl -L http://www.nuget.org/api/v2/package/etcetera/0.5.0 -o etcetera.0.5.0.nupkg \
-  && unzip -o etcetera.0.5.0.nupkg \
-  \
-  && mkdir -p ~/.kpm/packages/RestSharp/104.4.0/ \
-  && cd ~/.kpm/packages/RestSharp/104.4.0/ \
-  && curl -L http://www.nuget.org/api/v2/package/RestSharp/104.4.0 -o RestSharp.104.4.0.nupkg \
-  && unzip -o RestSharp.104.4.0.nupkg
-)
-
-cd /root/service-discovery-vnext/Agora.Api
-# kpm restore
+cd /root/AgoraSolution/Agora.Api
+kpm restore
 k web
 ```
 
@@ -63,34 +50,6 @@ k web
 ## Current Problems
 
 ### Problem 1
-
-* I can't seem to make line 23 in Agora.Api\Startup.cs work
-* No compile error, or runtime error that I can see, it just stops handling any requests
-
-### Problem 2
-
-* Running `kpm restore` in the instructions above causes breakage, I'm guessing due to a new dependency:
-
-```
-Resolving complete, 235ms elapsed
-Restore complete, 235ms elapsed
-Agora.Api 1.0.0 [.NETFramework,Version=v4.5]
-?? Kestrel 1.0.0-alpha4-10290 (Microsoft.AspNet.Server.Kestrel 1.0.0-alpha4-10290)
-?? Microsoft.AspNet.Mvc 6.0.0-alpha4-10983 (Microsoft.AspNet.FileSystems 1.0.0-alpha4-10279, Microsoft.AspNet.Http 1.0.0-alpha4-10310, Microsoft.AspNet.Mvc.Common 6.0.0-alpha4-10983, Microsoft.AspNet.Mvc.Core 6.0.0-alpha4-10983, Microsoft.AspNet.Mvc.ModelBinding 6.0.0-alpha4-10983, Microsoft.AspNet.Mvc.Razor 6.0.0-alpha4-10983, Microsoft.AspNet.Mvc.Razor.Host 6.0.0-alpha4-10983, Microsoft.AspNet.Razor 4.0.0-alpha4-10282, Microsoft.AspNet.RequestContainer 1.0.0-alpha4-10330, Microsoft.AspNet.Routing 1.0.0-alpha4-10324, Microsoft.Framework.ConfigurationModel 1.0.0-alpha4-10288, Microsoft.Framework.DependencyInjection 1.0.0-alpha4-10282)
-?? Microsoft.AspNet.Hosting 1.0.0-alpha4-10330 (Microsoft.AspNet.FeatureModel 1.0.0-alpha4-10310, Microsoft.AspNet.Http 1.0.0-alpha4-10310, Microsoft.AspNet.PipelineCore 1.0.0-alpha4-10310, Microsoft.AspNet.Security.DataProtection 1.0.0-alpha4-10274, Microsoft.Framework.ConfigurationModel 1.0.0-alpha4-10288, Microsoft.Framework.DependencyInjection 1.0.0-alpha4-10282, Microsoft.Framework.Logging 1.0.0-alpha4-10284, Microsoft.Framework.Runtime.Interfaces 1.0.0-alpha4-10352)
-?? Microsoft.AspNet.Owin 1.0.0-alpha4-10310 (Microsoft.AspNet.FeatureModel 1.0.0-alpha4-10310, Microsoft.AspNet.Http 1.0.0-alpha4-10310, Microsoft.AspNet.HttpFeature 1.0.0-alpha4-10310, Microsoft.AspNet.PipelineCore 1.0.0-alpha4-10310)
-```
-
-With the error on running `k web`:
-
-```
-Missing method Microsoft.Framework.Runtime.IMetadataProjectReference::WriteReferenceAssemblyStream(Stream) in assembly data-0x22f3830, referenced in assembly /root/.kre/packages/KRE-mono45-x86.1.0.0-alpha3-10165/bin/Microsoft.Framework.Runtime.Roslyn.dll
-Method not found: 'Microsoft.Framework.Runtime.IMetadataProjectReference.WriteReferenceAssemblyStream'.
-```
-
-I work around by just exitting the docker container, restart it and then repeat the instructions without the restore.
-
-### Problem 3
 
 * I can't run `kpm pack`. Note the length of the path at the end:
 
