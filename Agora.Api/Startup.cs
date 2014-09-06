@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Builder;
+using Microsoft.AspNet.Routing;
 using Microsoft.Framework.DependencyInjection;
 
 using etcetera;
@@ -32,7 +33,13 @@ namespace Agora.Api
 
             app.UseMvc(routes =>
             {
-                
+                routes.MapRoute(
+                    "api_route",
+                    "api/{action}",
+                    new
+                    {
+                        controller = "SimplePocoController"
+                    });
             });
         }
     }

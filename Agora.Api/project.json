@@ -1,6 +1,7 @@
 ﻿{
     "dependencies": {
         "Microsoft.AspNet.Mvc": "6.0.0-alpha3",
+        "Microsoft.AspNet.Routing": "1.0.0-alpha3",
         "Microsoft.Framework.ConfigurationModel.Json": "1.0.0-alpha3",
         "Agora.Config": "",
         "Nowin.vNext":  "",
