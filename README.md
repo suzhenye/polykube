@@ -37,8 +37,9 @@ docker \
 At this point you'll be dropped in the docker container with access to the AgoraSolution folder. Finally:
 
 ```
-cd /root/AgoraSolution/Agora.Api
+cd /root/AgoraSolution/
 kpm restore
+cd Agora.Api/
 k web
 ```
 
