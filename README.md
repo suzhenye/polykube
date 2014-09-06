@@ -1,15 +1,14 @@
 # AgoraSolution
 
-## About
+This is a playground for me to experiment with the following things:
 
-This will use some sort of container technology:
-- Start an etcd service
-- Start a microservice or two and register themselves to etcd
-- Shared configuration for environments across the services
-- Maybe play with Chronos
-- Orchestrate it with Kubernetes or Mesos or something
+1. ASP.NET vNext (development, K Runtime, packaging, etc)
+2. Kubernetes
+3. Possibly Mesos+Chronos
+4. Service Discovery with etcd
+5. Environment isolation (dev/int/prod that are fully isolated but heterogeneous)
 
-This currently piggybacks on the work of prozachj. Thanks prozachj!
+Note: Thanks to [prozachj](https://github.com/prozachj) for [the Docker image](https://github.com/ProZachJ/docker-mono-aspnetvnext).
 
 ## Running
 
