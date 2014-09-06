@@ -3,6 +3,8 @@ using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Builder;
 using Microsoft.Framework.DependencyInjection;
 
+using etcetera;
+
 using Agora.Config;
 
 namespace Agora.Api
@@ -18,12 +20,6 @@ namespace Agora.Api
 
             app.Use(async (context, next) =>
             {
-                Console.WriteLine(context.Request.Path);
-
-                Console.WriteLine(EtcdSettings.TestString);
-
-                var etcdClient = EtcdSettings.Client;
-
                 try
                 {
                     await next();
@@ -34,15 +30,10 @@ namespace Agora.Api
                 }
             });
 
-            app.UseMvc();
-        }
-    }
-
-    public class HomeController : Controller
-    {
-        public ActionResult Index()
-        {
-            return new EmptyResult();
+            app.UseMvc(routes =>
+            {
+                
+            });
         }
     }
 }
