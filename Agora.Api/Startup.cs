@@ -35,10 +35,10 @@ namespace Agora.Api
             {
                 routes.MapRoute(
                     "api_route",
-                    "api/{action}",
+                    "products/",
                     new
                     {
-                        controller = "SimplePocoController"
+                        controller = "Products"
                     });
             });
         }

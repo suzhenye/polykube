@@ -11,7 +11,7 @@ using Agora.Config;
 
 namespace Agora.Api
 {
-    public class SimplePocoController : IActionFilter, IResultFilter
+    public class ProductsController : IActionFilter, IResultFilter
     {
         private Stopwatch _timer;
 
