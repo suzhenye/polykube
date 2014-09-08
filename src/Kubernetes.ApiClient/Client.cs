@@ -12,7 +12,8 @@ namespace Kubernetes.ApiClient
 
         public KubeClient()
         {
-            // is this actually supposed to be localhost:8080? how do we discover the kubernetes api endpt?
+            // is this actually supposed to be localhost:8080?
+            // how do we discover the kubernetes api endpt?
             this.restClient = new RestClient("http://localhost:8080/api/v1beta1/");
         }
 

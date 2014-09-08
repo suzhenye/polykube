@@ -1,4 +1,7 @@
 #!/bin/bash
+
+# source: https://gist.github.com/chriseldredge/37d41925fdddecea8517
+
 # invoke with arguments to pass to k (e.g. ./k_daemon web)
 
 trap 'my_exit; exit' SIGINT SIGQUIT

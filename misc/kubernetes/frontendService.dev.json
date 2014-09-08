@@ -2,8 +2,8 @@
     "id": "frontend",
     "kind": "Service",
     "apiVersion": "v1beta1",
-    "port": 5005,
-    "containerPort": 5000,
+    "port": 10000,
+    "containerPort": 6000,
     "labels": {
         "name": "frontend"
     },

@@ -13,8 +13,8 @@
                     "containers": [
                         {
                             "name": "agora-api-name",
-                            "image": "localhost:5000/agora-api",
-                            "ports": [{ "containerPort": 5000, "hostPort": 5000 }]
+                            "image": "localhost:5000/agora/agora-api",
+                            "ports": [{ "containerPort": 6000, "hostPort": 6000 }]
                         }
                     ]
                 }

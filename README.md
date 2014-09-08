@@ -13,6 +13,13 @@ Note: Thanks to [prozachj](https://github.com/prozachj) for [the Docker image](h
 1. Build a Dockerfile for building the solution and dropping the docker container outputs.
 2. Chronos (by implication Mesos?)
 
+## Status
+
+- Everything in the README works.
+- The app works, but it doesn't query kubernetes correctly right now.
+- There are a number of TODOs.
+- k_daemon.sh is annoying.
+
 ## Running
 
 Run a local docker regsitry in docker
@@ -24,13 +31,13 @@ Build the agora-api docker image
 ```
 git clone github.com/colemickens/Agora ~/Code/Agora
 cd ~/Code/Agora/src/Agora.Api
-docker build -t agora_api .
+docker build --no-cache -t agora_api .
 ```
 
 Push it to the local docker repo
 ```
-docker tag agora-api localhost:5000/agora-api
-docker push localhost:5000/agora-api
+docker tag agora-api localhost:5000/agora/agora-api
+docker push localhost:5000/agora/agora-api
 ```
 
 Start kubernetes cluser locally (or some other way):
@@ -46,16 +53,28 @@ kubecfg -c misc/kubernetes/frontendController.dev.json create replicationControl
 kubecfg -c misc/kubernetes/frontendService.dev.json create services
 ```
 
+List pods:
+```
+kubecfg list pods
+```
+
+Tear down with:
+```
+kubecfg stop frontendController
+kubecfg delete replicationControllers/frontendController
+kubecfg delete services/frontend
+```
+
 ## Development
 
 Start the docker container:
 ```
-export SDVNEXTPATH=~/Code/vnext/Agora
+export SDVNEXTPATH=~/Code/Agora
 docker \
   run \
   -i \
   -v $SDVNEXTPATH:/root/Agora \
-  -p 80:5000 \
+  -p 80:6000 \
   -t prozachj/docker-mono-aspnetvnext \
   /bin/bash
 ```
