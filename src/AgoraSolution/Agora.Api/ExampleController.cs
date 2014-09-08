@@ -20,8 +20,11 @@ namespace Agora.Api
         {
             var client = EtcdSettings.Client;
             
-            var resp = client.Get("test");
-            Console.WriteLine(resp);
+            var resp1 = client.Set("test", "test2");
+            Console.WriteLine(resp1);
+            
+            var resp2 = client.Get("test");
+            Console.WriteLine(resp2);
 
             return "Hello world";
         }

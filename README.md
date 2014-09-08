@@ -5,23 +5,24 @@ This is a playground for me to experiment with the following things:
 1. ASP.NET vNext (development, K Runtime, packaging, etc)
 2. Kubernetes
 3. Possibly Mesos+Chronos
-4. Service Discovery with etcd
-5. Environment isolation (dev/int/prod that are fully isolated but heterogeneous)
 
 Note: Thanks to [prozachj](https://github.com/prozachj) for [the Docker image](https://github.com/ProZachJ/docker-mono-aspnetvnext).
 
 ## Brainstorming
 
-1. Build a Dockerfile for building the solution and dropping the docker outputs.
+1. Build a Dockerfile for building the solution and dropping the docker container outputs.
 2. That way anyone can build who can run a docker container.
-3. Write a kubernetes profile for deploying my docker container.
+3. Write a kubernetes profile for deploying my docker container(s).
 4. 
 
 ## Todo:
 
 1. Configure FxCop/StyleCop if they work with Linux.
 
-## Running
+## Build and run full local copy
+
+1. Run a local docker registry.
+2. 
 
 Prep the docker container and this source code:
 ```

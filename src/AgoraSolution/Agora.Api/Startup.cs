@@ -14,8 +14,6 @@ namespace Agora.Api
     {
         public void Configure(IBuilder app)
         {
-            // register ourselves with etcd
-
             app.UseServices(services =>
             {
                 services.AddMvc();
@@ -37,10 +35,10 @@ namespace Agora.Api
             {
                 routes.MapRoute(
                     "api_route",
-                    "products/",
+                    "example/",
                     defaults: new
                     {
-                        controller = "Products"
+                        controller = "Example"
                     });
             });
         }
