@@ -4,10 +4,6 @@ using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Routing;
 using Microsoft.Framework.DependencyInjection;
 
-using etcetera;
-
-using Agora.Config;
-
 namespace Agora.Api
 {
     public class Startup
@@ -33,17 +29,9 @@ namespace Agora.Api
 
             app.UseMvc(routes =>
             {
-                routes.MapRoute(
+                routes.MapRoute( 
                     "api_route",
-                    "example/",
-                    defaults: new
-                    {
-                        controller = "Example"
-                    });
-
-                routes.MapRoute(
-                    "api_route",
-                    "/",
+                    "",
                     defaults: new
                     {
                         controller = "Example"

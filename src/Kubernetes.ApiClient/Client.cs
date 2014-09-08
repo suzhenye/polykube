@@ -1,29 +1,34 @@
 using System;
-using etcetera;
+
 using RestSharp;
+
+using Kubernetes.ApiClient.Models;
 
 namespace Kubernetes.ApiClient
 {
-    private RestClient restClient;
-
-    public class Client
+    public class KubeClient
     {
-        public Client()
+        private RestClient restClient;
+
+        public KubeClient()
         {
-            this.restClient = new RestClient("/v1beta1/");
+            // is this actually supposed to be localhost:8080? how do we discover the kubernetes api endpt?
+            this.restClient = new RestClient("http://localhost:8080/api/v1beta1/");
         }
 
-        public ListPods()
+        public PodList ListPods()
         {
             var request = new RestRequest("pods/", Method.GET);
-            var response = this.restClient.Execute(request);
+            var response = this.restClient.Execute<PodList>(request);
+            return response.Data;
         }
 
-        public ListPods(string selector)
+        public PodList ListPods(string selector)
         {
             var request = new RestRequest("pods/", Method.GET);
             request.AddParameter("labels", selector);
-            var response = this.restClient.Execute(request);
+            var response = this.restClient.Execute<PodList>(request);
+            return response.Data;
         }
     }
 }

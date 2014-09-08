@@ -2,8 +2,11 @@
     "id": "frontend",
     "kind": "Service",
     "apiVersion": "v1beta1",
-    "port": 9998,
+    "port": 5005,
     "containerPort": 5000,
+    "labels": {
+        "name": "frontend"
+    },
     "selector": {
         "name": "frontend"
     }
