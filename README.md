@@ -10,6 +10,17 @@ This is a playground for me to experiment with the following things:
 
 Note: Thanks to [prozachj](https://github.com/prozachj) for [the Docker image](https://github.com/ProZachJ/docker-mono-aspnetvnext).
 
+## Brainstorming
+
+1. Build a Dockerfile for building the solution and dropping the docker outputs.
+2. That way anyone can build who can run a docker container.
+3. Write a kubernetes profile for deploying my docker container.
+4. 
+
+## Todo:
+
+1. Configure FxCop/StyleCop if they work with Linux.
+
 ## Running
 
 Prep the docker container and this source code:
