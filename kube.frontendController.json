@@ -1,0 +1,23 @@
+{
+    "id": "frontendController",
+    "kind": "ReplicationController",
+    "apiVersion": "v1beta1",
+    "desiredState": {
+        "replicas": 3,
+        "replicaSelector": {"name": "frontend"},
+        "podTemplate": {
+            "desiredState": {
+                "manifest": {
+                    "version": "v1beta1",
+                    "id": "frontendController",
+                    "containers": [{
+                        "name": "agora-api",
+                        "image": "agora-api",
+                        "ports": [{ "containerPort": 5000, "hostPort": 8081 }]
+                    }]
+                }
+            },
+            "labels": {"name": "frontend"}
+        }},
+    "labels": {"name": "frontend"}
+}

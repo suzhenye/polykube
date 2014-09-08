@@ -40,6 +40,14 @@ namespace Agora.Api
                     {
                         controller = "Example"
                     });
+
+                routes.MapRoute(
+                    "api_route",
+                    "/",
+                    defaults: new
+                    {
+                        controller = "Example"
+                    });
             });
         }
     }

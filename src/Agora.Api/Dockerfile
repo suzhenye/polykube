@@ -3,7 +3,7 @@ MAINTAINER      Cole Mickens <cole.mickens@gmail.com>
 
 RUN             git clone https://github.com/colemickens/Agora ~/Agora
 
-ENTRYPOINT      /bin/bash -c "cd ~/Agora/src/AgoraSolution/Agora.Api/ && source ~/.kre/kvm/kvm.sh && kpm restore && k web"
+ENTRYPOINT      /bin/bash -c "cd ~/Agora/src/Agora.Api/ && source ~/.kre/kvm/kvm.sh && kpm restore && k web"
 
 # TODO(colemick):
 # 1. Use a different base image, or ask prozachj to remove the sample aspnet since it's cruft
