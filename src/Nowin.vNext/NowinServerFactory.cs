@@ -23,7 +23,7 @@ namespace Nowin.vNext
             // TODO: Parse config
             var builder = ServerBuilder.New()
                                        .SetAddress(IPAddress.Any)
-                                       .SetPort(6000)
+                                       .SetPort(8000)
                                        .SetOwinApp(OwinWebSocketAcceptAdapter.AdaptWebSockets(HandleRequest));
 
             return new NowinServerInformation(builder);

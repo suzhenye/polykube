@@ -1,90 +1,47 @@
-# AgoraSolution
+# polykube
+
+Multiple languages, multiple service discovery patterns.
 
 This is a playground for me to experiment with the following things:
 
 1. ASP.NET vNext (development, K Runtime, packaging, etc)
 2. Docker support
-2. Kubernetes API in .NET
+3. Kubernetes API in .NET
+4. Other apps in other languages playing nice with my choice of service discovery, etc
 
-Note: Thanks to [prozachj](https://github.com/prozachj) for [the Docker image](https://github.com/ProZachJ/docker-mono-aspnetvnext).
+Note: Thanks to [prozachj](https://github.com/prozachj) for [the ASP.NET vNext Docker image](https://github.com/ProZachJ/docker-mono-aspnetvnext).
 
 ## Additional ideas
 
 1. Build a Dockerfile for building the solution and dropping the docker container outputs.
 2. Chronos (by implication Mesos?)
 
-## Status
-
-- Everything in the README works.
-- The app works, but it doesn't query kubernetes correctly right now.
-- There are a number of TODOs.
-- k_daemon.sh is annoying.
-
 ## Running
 
-Run a local docker regsitry in docker
+This relies on the location of kubernetes (`~/Code/kubernetes`).
+This will run a single instance of `vnextapi` in a container. You can see it at http://localhost:8000.
+
 ```
-docker run -e SETTINGS_FLAVOR=dev -p 5000:5000 registry
+make
+make run
 ```
 
-Build the agora-api docker image
-```
-git clone github.com/colemickens/Agora ~/Code/Agora
-cd ~/Code/Agora/src/Agora.Api
-docker build --no-cache -t agora_api .
-```
+## Running on Kubernetes
 
-Push it to the local docker repo
-```
-docker tag agora-api localhost:5000/agora/agora-api
-docker push localhost:5000/agora/agora-api
-```
-
-Start kubernetes cluser locally (or some other way):
+Start a cluster somehow. If you don't know how, you can start one locally:
 ```
 cd ~/Code/kubernetes
-hack/local-up-cluster.sh
-alias kubecfg=~/Code/kubernetes/cluster/kubecfg.sh
+./hack/local-up-cluster.sh
 ```
 
-Then deploy to the kubernetes cluster (warning, this assumes you have set your environment variables for your cluster type, or have override the default!):
+Now:
 ```
-kubecfg -c misc/kubernetes/frontendController.dev.json create replicationControllers
-kubecfg -c misc/kubernetes/frontendService.dev.json create services
-```
-
-List pods:
-```
-kubecfg list pods
+make kube-up
 ```
 
-Tear down with:
-```
-kubecfg stop frontendController
-kubecfg delete replicationControllers/frontendController
-kubecfg delete services/frontend
-```
+The service is accessible on one of your minions at port 10000. Unfortunately, Kubernetes currently requires manual inspection for wiring up DNS. (note, if you're running on localhost, it's just http://localhost:10000/)
 
-## Development
+## Bugs
 
-Start the docker container:
-```
-export SDVNEXTPATH=~/Code/Agora
-docker \
-  run \
-  -i \
-  -v $SDVNEXTPATH:/root/Agora \
-  -p 80:6000 \
-  -t prozachj/docker-mono-aspnetvnext \
-  /bin/bash
-```
-
-At this point you'll be dropped in the docker container with access to the Agora folder. Finally:
-```
-cd /root/Agora/
-kpm restore
-cd src/Agora.Api/
-./k_daemon.sh web
-```
-
-Then you can iterate by editting files in the host and restarting `k web` in the container. Yay, native editting with containized build and running.
+- `kpm restore` fails to find nuget.config, even when it's next to global.json...
+- `k_daemon.sh` existing

@@ -1,12 +1,15 @@
 #!/bin/bash
 
 # source: https://gist.github.com/chriseldredge/37d41925fdddecea8517
+# modified to remove $PWD
 
 # invoke with arguments to pass to k (e.g. ./k_daemon web)
 
+SCRIPTDIR=`dirname $0`
+
 trap 'my_exit; exit' SIGINT SIGQUIT
 
-fifo=$PWD/fifo.tmp
+fifo=$SCRIPTDIR/fifo.tmp
 timeout=15
 
 # make a fifo and attach to &3

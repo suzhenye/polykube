@@ -1,13 +1,13 @@
 {
-    "id": "frontend",
+    "id": "vnextapi",
     "kind": "Service",
     "apiVersion": "v1beta1",
     "port": 10000,
-    "containerPort": 6000,
+    "containerPort": 8000,
     "labels": {
-        "name": "frontend"
+        "name": "vnextapi"
     },
     "selector": {
-        "name": "frontend"
+        "name": "vnextapi"
     }
 }

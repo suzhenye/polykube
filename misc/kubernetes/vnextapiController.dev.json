@@ -1,0 +1,25 @@
+{
+    "id": "vnextapiController",
+    "kind": "ReplicationController",
+    "apiVersion": "v1beta1",
+    "desiredState": {
+        "replicas": 1,
+        "replicaSelector": {"name": "vnextapi"},
+        "podTemplate": {
+            "desiredState": {
+                "manifest": {
+                    "version": "v1beta1",
+                    "id": "vnextapiController",
+                    "containers": [
+                        {
+                            "name": "vnextapi",
+                            "image": "localhost:5000/polykube/vnextapi",
+                            "ports": [{ "containerPort": 8000, "hostPort": 8000 }]
+                        }
+                    ]
+                }
+            },
+            "labels": {"name": "vnextapi"}
+        }},
+    "labels": {"name": "vnextapi"}
+}
