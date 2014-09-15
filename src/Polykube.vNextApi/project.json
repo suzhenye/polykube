@@ -7,8 +7,6 @@
         "System.Diagnostics.Tools": "4.0.0.0",
         "System.Globalization": "4.0.10.0",
         "RestSharp": "104.4.0",
-        "polykube.config": "",
-        "kubernetes.apiclient": "",
         "Nowin.vNext":  ""
     },
     "commands": {

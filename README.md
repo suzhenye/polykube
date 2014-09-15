@@ -2,26 +2,37 @@
 
 Multiple languages, multiple service discovery patterns.
 
-This is a playground for me to experiment with the following things:
+This is a playground for me to experiment with random things.
+
+## Implemented
 
 1. ASP.NET vNext (development, K Runtime, packaging, etc)
-2. Docker support
-3. Kubernetes API in .NET
-4. Other apps in other languages playing nice with my choice of service discovery, etc
+2. Docker: using it for deployment, and repeatable builds hopefully (vnextapi is deployed like a dynamic app)
+3. Service discovery via key value stores - probably etcd
 
-Note: Thanks to [prozachj](https://github.com/prozachj) for [the ASP.NET vNext Docker image](https://github.com/ProZachJ/docker-mono-aspnetvnext).
+## Plan to implement
 
-## Additional ideas
+1. Add registrator
+2. Consume registrator from vnextapi project
+3. Consume registrator from new golang project (+ docker config for it, kube cfg for it, etc)
+4. Have a static js frontend served by JS that talks to my two backends.
+  - It will show the various backend machines available that they can find from discovery
 
-1. Build a Dockerfile for building the solution and dropping the docker container outputs.
-2. Chronos (by implication Mesos?)
+## Future ideas
+
+1. Chronos (by implication Mesos?)
 
 ## Running
 
-This relies on the location of kubernetes (`~/Code/kubernetes`).
-This will run a single instance of `vnextapi` in a container. You can see it at http://localhost:8000.
+### Dependencies
 
+1. Docker (so, Linux, or boot2docker)
+
+These `cd`s expect you to have `kubernetes` and `polykube` checked out in ~/Code/. Change them accordingly if you need to. (Note, the Makefile in `polykube` references `kubernetes` at ~/Code/kubernetes, so you have to change it there as well.)
+
+This will run a single instance of `vnextapi` in a container. You can see it at http://localhost:8000.
 ```
+cd ~/Code/polykube
 make
 make run
 ```
@@ -36,6 +47,7 @@ cd ~/Code/kubernetes
 
 Now:
 ```
+cd ~/Code/polykube
 make kube-up
 ```
 
@@ -45,3 +57,7 @@ The service is accessible on one of your minions at port 10000. Unfortunately, K
 
 - `kpm restore` fails to find nuget.config, even when it's next to global.json...
 - `k_daemon.sh` existing
+
+## Notes
+
+- Thanks to [prozachj](https://github.com/prozachj) for [the ASP.NET vNext Docker image](https://github.com/ProZachJ/docker-mono-aspnetvnext).

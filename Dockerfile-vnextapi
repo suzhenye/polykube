@@ -5,7 +5,7 @@ ADD             . /root/polykube/
 
 RUN             bash -c "source /root/.kre/kvm/kvm.sh && cd /root/polykube/src && kpm restore"
 
-CMD             /root/polykube/src/polykube.vnextapi/start_k_daemon.sh
+CMD             /root/polykube/src/Polykube.vNextApi/start_k_daemon.sh
 
 # TODO(colemick):
 # 1. Use a different base image, or ask prozachj to remove the sample aspnet since it's cruft

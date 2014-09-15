@@ -1,9 +1,9 @@
-# let's hope this get's accepted soon so I can stop a lot of this messing around:
-# https://github.com/docker/docker/issues/7284
-
 KUBECFG = ~/Code/kubernetes/cluster/kubecfg.sh
 CURDIR = $(shell pwd)
 
+# Not sure if I'm using make correctly since I need .NOTPARALLEL
+# For the all step, I want docket-vnextapi to finish before starting deploy-local.
+# This seems to only work with .NOTPARALLEL, else it starts deploying while still building.
 .NOTPARALLEL:
 
 all: docker-vnextapi deploy-local
@@ -15,7 +15,7 @@ kube-up:
 
 kube-down:
 	$(KUBECFG) stop vnextapiController
-	$(KUBECFG) delete replicationControllers/vnextapiController
+	$(KUBECFG) rm vnextapiController
 	$(KUBECFG) delete services/vnextapi
 
 ## Local docker stuff
@@ -28,6 +28,8 @@ deploy-local:
 
 ## Build docker images for our stuff
 docker-vnextapi:
+	# TODO: remove this grossness when this patch is taken:
+	# https://github.com/docker/docker/issues/7284
 	rm -f Dockerfile
 	cp Dockerfile-vnextapi Dockerfile
 	docker build --no-cache -t polykube/vnextapi .
