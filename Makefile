@@ -7,7 +7,7 @@ CURDIR = $(shell pwd)
 .NOTPARALLEL:
 
 all:
-	exit
+	exit # See README
 
 
 
@@ -78,7 +78,6 @@ docker-goapi:
 	rm Dockerfile
 
 ## Open interactive dev containers
-
 dev-vnextapi:
 	docker run                                     \
 		-p 20020:8000                                \

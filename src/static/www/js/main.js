@@ -1,13 +1,17 @@
 (function() {
-    var xhr1 = new XMLHttpRequest();
-    var xhr2 = new XMLHttpRequest();
+    var updateP = function(id, response) {
+      document.getElementById(id).innerHTML = response;
+    };
+
+    var goapi_xhr = new XMLHttpRequest();
+    var vnextapi_xhr = new XMLHttpRequest();
     
-    xhr1.open('GET', 'http://localhost:10010/');
-    xhr2.open('GET', 'http://localhost:10020/');
+    goapi_xhr.open('GET', 'http://localhost:10010/');
+    vnextapi_xhr.open('GET', 'http://localhost:10020/');
     
-    xhr1.onload = function(e) { console.log(e); }
-    xhr2.onload = function(e) { console.log(e); }
+    goapi_xhr.onload = function(e) { updateP("goapi-status", e.target.response); }
+    vnextapi_xhr.onload = function(e) { updateP("vnextapi-status", e.target.response); }
     
-    xhr1.send();
-    xhr2.send();
+    goapi_xhr.send();
+    vnextapi_xhr.send();
 }());

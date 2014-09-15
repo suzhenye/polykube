@@ -21,7 +21,7 @@ namespace Agora.Api
         {
             var result = String.Format(
                 CultureInfo.InvariantCulture,
-                "Hello World. There are {0} frontends.",
+                "This is a lousy string.",
                 0);
 
             return result;
