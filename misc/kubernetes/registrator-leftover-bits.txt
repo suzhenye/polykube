@@ -1,0 +1,19 @@
+,
+{
+    "name": "registrator",
+    "image": "progrium/registrator",
+    "command": "/bin/registrator etcd://localhost:4001/blah",
+    "env": [
+        {
+            "key": "DOCKER_HOST",
+            "value": "unix:///mnt/host/var/run/docker.sock"
+        }
+    ],
+    "volumeMounts": [
+        {
+            "name": "varrun",
+            "mountPath": "/mnt/host/var/run",
+            "readOnly": true
+        }
+    ]
+}

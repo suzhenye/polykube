@@ -14,7 +14,7 @@
                         {
                             "name": "vnextapi",
                             "image": "localhost:5000/polykube/vnextapi",
-                            "ports": [{ "containerPort": 8000, "hostPort": 8000 }]
+                            "ports": [{ "containerPort": 8000, "hostPort": 30020 }]
                         }
                     ]
                 }

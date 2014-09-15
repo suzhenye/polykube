@@ -1,0 +1,13 @@
+{
+    "id": "static",
+    "kind": "Service",
+    "apiVersion": "v1beta1",
+    "port": 10000,
+    "containerPort": 80,
+    "labels": {
+        "name": "static"
+    },
+    "selector": {
+        "name": "static"
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "id": "goapiController",
+    "kind": "ReplicationController",
+    "apiVersion": "v1beta1",
+    "desiredState": {
+        "replicas": 1,
+        "replicaSelector": {"name": "goapi"},
+        "podTemplate": {
+            "desiredState": {
+                "manifest": {
+                    "version": "v1beta1",
+                    "id": "goapiController",
+                    "containers": [
+                        {
+                            "name": "goapi",
+                            "image": "localhost:5000/polykube/goapi",
+                            "ports": [{ "containerPort": 80, "hostPort": 30010 }]
+                        }
+                    ]
+                }
+            },
+            "labels": {"name": "goapi"}
+        }},
+    "labels": {"name": "goapi"}
+}

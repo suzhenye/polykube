@@ -4,60 +4,134 @@ Multiple languages, multiple service discovery patterns.
 
 This is a playground for me to experiment with random things.
 
+
+
 ## Implemented
 
 1. ASP.NET vNext (development, K Runtime, packaging, etc)
 2. Docker: using it for deployment, and repeatable builds hopefully (vnextapi is deployed like a dynamic app)
-3. Service discovery via key value stores - probably etcd
 
-## Plan to implement
 
-1. Add registrator
+## Implementing soon
+
+0. Deployment to Azure
+0. Service discovery via key value stores - probably etcd
+1. Add registrator (may not be possible...)
 2. Consume registrator from vnextapi project
 3. Consume registrator from new golang project (+ docker config for it, kube cfg for it, etc)
 4. Have a static js frontend served by JS that talks to my two backends.
   - It will show the various backend machines available that they can find from discovery
 
-## Future ideas
 
-1. Chronos (by implication Mesos?)
 
-## Running
-
-### Dependencies
+## Dependencies
 
 1. Docker (so, Linux, or boot2docker)
 
-These `cd`s expect you to have `kubernetes` and `polykube` checked out in ~/Code/. Change them accordingly if you need to. (Note, the Makefile in `polykube` references `kubernetes` at ~/Code/kubernetes, so you have to change it there as well.)
+2. These `cd`s expect you to have `kubernetes` and `polykube` checked out in ~/Code/. Change them accordingly if you need to. (Note, the Makefile in `polykube` references `kubernetes` at ~/Code/kubernetes, so you have to change it there as well.)
 
-This will run a single instance of `vnextapi` in a container. You can see it at http://localhost:8000.
+
+
+## Quick Start
+
+### In dev containers
+See below under instructions for `make dev-{servicename}`. Each service must be started individually and run in their own window in this mode.
+
+### In containers
+See below under instructions for `make run-{servicename}`. Each service must be started individually and run in their own window in this mode.
+
+### In kubernetes (locally)
+Start a local kubernetes instance. See below if you don't know how, or the Kubernetes docs. Then, see below under instructions for `make kube-up`
+
+### In kubernetes (azure)
+Whenever I can try to figure it out and write it up...
+
+
+
+
+## `Makefile`
+
+### `make docker`
+This will build the docker images for the various services.
+(Also: `make docker-vnextapi` or `make docker-static` or `make docker-goapi`)
+
+### `make local-docker-repo`
+Start a local docker repo (used to serve images for Kubernetes in local configuration)
+
+### `make deploy-local`
+Push all of the docker images to the local docker repo started with `make local-docker-repo`. This is only required for local kubernetes deployment.
+
+### `make run-{servicename}`
+These commands will run the service containers with the ports as described below (the Docker column).
+
+### `make dev-{servicename}`
+They modify `docker run` command with the standard service containers (same ports as with `make run-{servicename}`) to map in the source for the service and then execute commands to ensure that the dev code is being served from the container. This allows you to edit the source code on your host machine, and then rebuild and run it immediately in the container.
+
+
 ```
-cd ~/Code/polykube
-make
-make run
+cole@chimera>> make dev-vnextapi
+
+root@bd91580b2abf:~/polykube-dev/src/Polykube.vNextApi# ls
+# ExampleController.cs  Startup.cs  config.json  k_daemon.sh  project.json  start_k_daemon.sh
+
+root@bd91580b2abf:~/polykube-dev/src/Polykube.vNextApi# k web
+# press [enter], `k web` will exit
+# edit the csharp source code in the source tree
+
+root@bd91580b2abf:~/polykube-dev/src/Polykube.vNextApi# k web
+# observe the changes!
 ```
 
-## Running on Kubernetes
-
-Start a cluster somehow. If you don't know how, you can start one locally:
 ```
+cole@chimera>> make dev-goapi
+
+# this isn't finished yet
+```
+
+```
+cole@chimera>> make dev-static
+
+[ root@f21a88b6c0b0:~ ]$ ls /root/polykube-static-active/www
+# 404.html  css/  index.html  js/
+
+[ root@f21a88b6c0b0:~ ]$ nginx
+# press [ctrl]+c, nginx will exit
+# edit the static files in the source tree
+
+[ root@f21a88b6c0b0:~ ]$ nginx
+# observe the changes!
+```
+
+### `make kube-up`
+Bring up all of the kubernetes replicationControllers and services.
+
+### `make kube-down`
+Bring down all of the kubernetes replicationControllers and services. (This doesn't kill all docker containers, not sure if I'm doing something wrong...)
+
+## Notes
+
+### Starting a local kubernetes cluster
+
+```
+git clone https://github.com/GoogleCloudPlatform/kubernetes.git ~/Code/kubernetes
 cd ~/Code/kubernetes
 ./hack/local-up-cluster.sh
 ```
 
-Now:
-```
-cd ~/Code/polykube
-make kube-up
-```
+### Ports
 
-The service is accessible on one of your minions at port 10000. Unfortunately, Kubernetes currently requires manual inspection for wiring up DNS. (note, if you're running on localhost, it's just http://localhost:10000/)
+- Docker port is the port that is used when running `make dev-{servicename}`
+- Kube ctrlr is the port exposed by the container under kubernetes
+- Kube srvc is the port exposed by service under kubernetes (this should be used to access, not Kube ctrlr)
+- Internal is the port exposed by the service inside the container
 
-## Bugs
+Docker port | Kube ctrlr | Kube srvc | Internal | Service
+------------|------------|-----------|-----------|--------
+      20020 |      30020 |     10020 |     8000 | vnextapi
+      20000 |      30000 |     10000 |       80 | static
+      20010 |      30010 |     10010 |       80 | goapi
+
+### Bugs
 
 - `kpm restore` fails to find nuget.config, even when it's next to global.json...
 - `k_daemon.sh` existing
-
-## Notes
-
-- Thanks to [prozachj](https://github.com/prozachj) for [the ASP.NET vNext Docker image](https://github.com/ProZachJ/docker-mono-aspnetvnext).

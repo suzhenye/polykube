@@ -2,7 +2,7 @@
     "id": "vnextapi",
     "kind": "Service",
     "apiVersion": "v1beta1",
-    "port": 10000,
+    "port": 10020,
     "containerPort": 8000,
     "labels": {
         "name": "vnextapi"

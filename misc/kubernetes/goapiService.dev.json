@@ -1,0 +1,13 @@
+{
+    "id": "goapi",
+    "kind": "Service",
+    "apiVersion": "v1beta1",
+    "port": 10010,
+    "containerPort": 80,
+    "labels": {
+        "name": "goapi"
+    },
+    "selector": {
+        "name": "goapi"
+    }
+}

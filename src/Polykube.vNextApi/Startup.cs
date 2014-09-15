@@ -19,6 +19,8 @@ namespace Agora.Api
             {
                 try
                 {
+                    // TODO not a wise thing to do:
+                    context.Response.Headers.Append("Access-Control-Allow-Origin", "*");
                     await next();
                 }
                 catch (Exception ex)

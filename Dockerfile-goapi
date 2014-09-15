@@ -1,0 +1,10 @@
+FROM google/golang
+
+WORKDIR    /gopath/src/goapi
+ADD        ./src/goapi             /gopath/src/goapi/
+RUN        go get goapi
+
+WORKDIR    /gopath/bin/
+CMD        /gopath/bin/goapi
+
+EXPOSE 80
