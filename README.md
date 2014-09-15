@@ -1,25 +1,25 @@
 # polykube
 
-Multiple languages, multiple service discovery patterns.
+As of now, this is a service, named "polykube" that is comprised of microservices. There are currently three: `vnextapi`, `goapi`, `static`. `vnext` is an ASP.NET vNext application. `goapi` is a golang application (net/http). `static` is just nginx with a simple http/js client that accesses `vnextapi` and `goapi` via CORS-enabled HTTP.
 
-This is a playground for me to experiment with random things.
-
-
+This is deployable using Kubernetes. Tested with a local cluster. Going to test with Azure soon.
 
 ## Implemented
 
 1. ASP.NET vNext (development, K Runtime, packaging, etc)
-2. Docker: using it for deployment, and repeatable builds hopefully (vnextapi is deployed like a dynamic app)
+2. Simple golang service (just to prove out service discovery later)
+3. Docker: using it for deployment, and repeatable builds hopefully (vnextapi is deployed like a dynamic app)
+4. Kubernetes deployments
 
 
 ## Implementing soon
 
 0. Deployment to Azure
-0. Service discovery via key value stores - probably etcd
-1. Add registrator (may not be possible...)
-2. Consume registrator from vnextapi project
-3. Consume registrator from new golang project (+ docker config for it, kube cfg for it, etc)
-4. Have a static js frontend served by JS that talks to my two backends.
+1. Service discovery via key value stores - probably etcd
+2. Add registrator (may not be possible...)
+3. Consume registrator from vnextapi project
+4. Consume registrator from new golang project (+ docker config for it, kube cfg or it, etc)
+5. Have a static js frontend served by JS that talks to my two backends.
   - It will show the various backend machines available that they can find from discovery
 
 
