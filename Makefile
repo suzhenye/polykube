@@ -27,6 +27,10 @@ kube-up-goapi:
 kube-up-static:
 	$(KUBECFG) -c misc/kubernetes/staticController.dev.json create replicationControllers
 	$(KUBECFG) -c misc/kubernetes/staticService.dev.json create services
+kube-up-registrator:
+	# well, this is not the way to use registrator but I Want to be able to check this in and show it
+	# it doesn't work, just spawns a bunch of pauses
+	$(KUBECFG) -c misc/kubernetes/registratorController.dev.json create replicationControllers
 
 kube-down:
 	$(KUBECFG) stop vnextapiController; \
@@ -67,6 +71,14 @@ docker-registrator:
 	docker run                                                \
 		-v /var/run:/mnt/host/var/run                           \
 		-e DOCKER_HOST=unix:///mnt/host/var/run/docker.sock     \
+		progrium/registrator                                    \
+		etcd://10.0.0.2:4001/test
+
+docker-registrator2:
+	docker run                                                \
+		-v /var/run:/mnt/host/var/run                           \
+		-e DOCKER_HOST=unix:///mnt/host/var/run/docker.sock     \
+		--entrypoint="registrator"                              \
 		progrium/registrator                                    \
 		etcd://10.0.0.2:4001/test
 

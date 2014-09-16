@@ -12,14 +12,9 @@
                     "id": "staticController",
                     "containers": [
                         {
-                            "name": "static",
-                            "image": "localhost:5000/polykube/static",
-                            "ports": [{ "containerPort": 80, "hostPort": 30000 }]
-                        },
-                        {
                             "name": "registrator",
                             "image": "progrium/registrator",
-                            "command": "/bin/registrator etcd://10.0.0.2:4001/blah",
+                            "command": ["registrator", "etcd://10.0.0.2:4001/blah"],
                             "env": [
                                 {
                                     "key": "DOCKER_HOST",

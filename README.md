@@ -34,7 +34,7 @@ This is deployable using Kubernetes. Tested with a local cluster. Going to test 
 
 ## Quick Start
 
-### In dev containers
+### In interactive, dev-friendly containers
 See below under instructions for `make dev-{servicename}`. Each service must be started individually and run in their own window in this mode.
 
 ### In containers
@@ -66,7 +66,6 @@ These commands will run the service containers with the ports as described below
 
 ### `make dev-{servicename}`
 They modify `docker run` command with the standard service containers (same ports as with `make run-{servicename}`) to map in the source for the service and then execute commands to ensure that the dev code is being served from the container. This allows you to edit the source code on your host machine, and then rebuild and run it immediately in the container.
-
 
 ```
 cole@chimera>> make dev-vnextapi
