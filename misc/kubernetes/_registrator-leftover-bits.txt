@@ -1,0 +1,49 @@
+{
+    "id": "staticController",
+    "kind": "ReplicationController",
+    "apiVersion": "v1beta1",
+    "desiredState": {
+        "replicas": 1,
+        "replicaSelector": {"name": "static"},
+        "podTemplate": {
+            "desiredState": {
+                "manifest": {
+                    "version": "v1beta1",
+                    "id": "staticController",
+                    "containers": [
+                        {
+                            "name": "static",
+                            "image": "localhost:5000/polykube/static",
+                            "ports": [{ "containerPort": 80, "hostPort": 30000 }]
+                        },
+                        {
+                            "name": "registrator",
+                            "image": "progrium/registrator",
+                            "command": "/bin/registrator etcd://10.0.0.2:4001/blah",
+                            "env": [
+                                {
+                                    "key": "DOCKER_HOST",
+                                    "value": "unix:///mnt/host/var/run/docker.sock"
+                                }
+                            ],
+                            "volumeMounts": [
+                                {
+                                    "name": "varrun",
+                                    "mountPath": "/mnt/host/var/run",
+                                    "readOnly": true
+                                }
+                            ]
+                        }
+                    ],
+                    "volumes": [
+                        {
+                            "name": "varrun",
+                            "source": { "hostDir": { "path": "/var/run" } }
+                        }
+                    ]
+                }
+            },
+            "labels": {"name": "static"}
+        }},
+    "labels": {"name": "static"}
+}

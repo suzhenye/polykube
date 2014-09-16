@@ -1,4 +1,5 @@
-KUBECFG = ~/Code/kubernetes/cluster/kubecfg.sh
+KUBEROOT = ~/Code/kubernetes
+KUBECFG = $(KUBEROOT)/cluster/kubecfg.sh
 CURDIR = $(shell pwd)
 
 # Not sure if I'm using make correctly since I need .NOTPARALLEL
@@ -12,30 +13,36 @@ all:
 
 
 ## Kube helpers
-kube-up:
+kube-local:
+	$(KUBEROOT)/hack/local-up-cluster.sh
+
+kube-up: kube-up-vnextapi kube-up-goapi kube-up-static
+
+kube-up-vnextapi:
 	$(KUBECFG) -c misc/kubernetes/vnextapiController.dev.json create replicationControllers
 	$(KUBECFG) -c misc/kubernetes/vnextapiService.dev.json create services
+kube-up-goapi:
 	$(KUBECFG) -c misc/kubernetes/goapiController.dev.json create replicationControllers
 	$(KUBECFG) -c misc/kubernetes/goapiService.dev.json create services
+kube-up-static:
 	$(KUBECFG) -c misc/kubernetes/staticController.dev.json create replicationControllers
 	$(KUBECFG) -c misc/kubernetes/staticService.dev.json create services
 
 kube-down:
-	$(KUBECFG) stop vnextapiController
-	$(KUBECFG) rm vnextapiController
-	$(KUBECFG) delete services/vnextapi
-	$(KUBECFG) stop goapiController
-	$(KUBECFG) rm goapiController
-	$(KUBECFG) delete services/goapi
-	$(KUBECFG) stop staticController
-	$(KUBECFG) rm staticController
+	$(KUBECFG) stop vnextapiController; \
+	$(KUBECFG) rm vnextapiController; \
+	$(KUBECFG) delete services/vnextapi; \
+	$(KUBECFG) stop goapiController; \
+	$(KUBECFG) rm goapiController; \
+	$(KUBECFG) delete services/goapi; \
+	$(KUBECFG) stop staticController; \
+	$(KUBECFG) rm staticController; \
 	$(KUBECFG) delete services/static
-
 
 
 ## Local docker stuff
 local-docker-repo:
-	docker run -e SETTINGS_FLAVOR=dev -p 5000:5000 registry
+	docker run -e SETTINGS_FLAVOR=dev -v /tmp/registry:/tmp/registry -p 5000:5000 registry
 
 deploy-local: deploy-local-vnextapi deploy-local-goapi deploy-local-static
 
@@ -55,6 +62,13 @@ deploy-local-static:
 
 ## Build docker images for our stuff
 docker: docker-vnextapi docker-static docker-goapi
+
+docker-registrator:
+	docker run                                                \
+		-v /var/run:/mnt/host/var/run                           \
+		-e DOCKER_HOST=unix:///mnt/host/var/run/docker.sock     \
+		progrium/registrator                                    \
+		etcd://10.0.0.2:4001/test
 
 docker-vnextapi:
 	# TODO: remove this grossness when this patch is taken: https://github.com/docker/docker/issues/7284
