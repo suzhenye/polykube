@@ -27,7 +27,6 @@ kube-up-goapi:
 kube-up-static:
 	$(KUBECFG) -c misc/kubernetes/staticController.dev.json create replicationControllers
 	$(KUBECFG) -c misc/kubernetes/staticService.dev.json create services
-kube-up-registrator:
 	# well, this is not the way to use registrator but I Want to be able to check this in and show it
 	# it doesn't work, just spawns a bunch of pauses
 	$(KUBECFG) -c misc/kubernetes/registratorController.dev.json create replicationControllers
@@ -65,22 +64,14 @@ deploy-local-static:
 
 
 ## Build docker images for our stuff
-docker: docker-vnextapi docker-static docker-goapi
+docker: docker-aspvnextbase docker-vnextapi docker-static docker-goapi
 
-docker-registrator:
-	docker run                                                \
-		-v /var/run:/mnt/host/var/run                           \
-		-e DOCKER_HOST=unix:///mnt/host/var/run/docker.sock     \
-		progrium/registrator                                    \
-		etcd://10.0.0.2:4001/test
-
-docker-registrator2:
-	docker run                                                \
-		-v /var/run:/mnt/host/var/run                           \
-		-e DOCKER_HOST=unix:///mnt/host/var/run/docker.sock     \
-		--entrypoint="registrator"                              \
-		progrium/registrator                                    \
-		etcd://10.0.0.2:4001/test
+docker-aspvnextbase:
+	# TODO: remove this grossness when this patch is taken: https://github.com/docker/docker/issues/7284
+	rm -f Dockerfile
+	cp Dockerfile-aspvnextbase Dockerfile
+	docker build  --no-cache -t polykube/aspvnextbase .
+	rm Dockerfile
 
 docker-vnextapi:
 	# TODO: remove this grossness when this patch is taken: https://github.com/docker/docker/issues/7284
@@ -133,7 +124,7 @@ dev-goapi:
 
 ## Run non-interactive containers
 run-vnextapi:
-	docker run -p 20020:80 polykube/vnextapi
+	docker run -p 20020:8000 polykube/vnextapi
 
 run-static:
 	docker run -p 20000:80  polykube/static

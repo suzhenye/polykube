@@ -1,15 +1,13 @@
-FROM            prozachj/docker-mono-aspnetvnext
+FROM            polykube/aspvnextbase
 MAINTAINER      Cole Mickens <cole.mickens@gmail.com>
+
+# everything after this is specific to polykube
 
 ADD             . /root/polykube/
 
-RUN             bash -c "source /root/.kre/kvm/kvm.sh && cd /root/polykube/src && kpm restore"
+RUN             bash -c "source /root/.kre/kvm/kvm.sh && cd /root/polykube/ && kpm --verbose restore"
 
 WORKDIR         /root/polykube/src/Polykube.vNextApi/
 CMD             /root/polykube/src/Polykube.vNextApi/start_k_daemon.sh
 
 EXPOSE 8000
-
-# TODO(colemick):
-# 1. Use a different base image, or ask prozachj to remove the sample aspnet since it's cruft
-# 2. Revist when kpm pack is a reality and we will emit docker images as a result of the build
