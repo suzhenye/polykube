@@ -4,7 +4,7 @@ MAINTAINER      Cole Mickens <cole.mickens@gmail.com>
 RUN     apt-get -qq update
 
 RUN     apt-get -qqy install libtool autoconf g++ gettext make git unzip && \
-        git clone -b mono-3.8.0-branch https://github.com/mono/mono /tmp/mono && \
+        git clone -b mono-3.10.0-branch https://github.com/mono/mono /tmp/mono && \
         cd /tmp/mono && \
         ./autogen.sh --prefix=/usr && \
         make get-monolite-latest && \

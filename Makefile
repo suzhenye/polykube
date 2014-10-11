@@ -27,9 +27,6 @@ kube-up-goapi:
 kube-up-static:
 	$(KUBECFG) -c misc/kubernetes/staticController.dev.json create replicationControllers
 	$(KUBECFG) -c misc/kubernetes/staticService.dev.json create services
-	# well, this is not the way to use registrator but I Want to be able to check this in and show it
-	# it doesn't work, just spawns a bunch of pauses
-	$(KUBECFG) -c misc/kubernetes/registratorController.dev.json create replicationControllers
 
 kube-down:
 	$(KUBECFG) stop vnextapiController; \
@@ -44,20 +41,23 @@ kube-down:
 
 
 ## Local docker stuff
-local-docker-repo:
+docker-repo-local:
 	docker run -e SETTINGS_FLAVOR=dev -v /tmp/registry:/tmp/registry -p 5000:5000 registry
 
-deploy-local: deploy-local-vnextapi deploy-local-goapi deploy-local-static
+docker-repo-s3:
+	docker run -e SETTINGS_FLAVOR=s3 -p 5000:5000 registry
 
-deploy-local-vnextapi:
+docker-push-local: docker-push-local-vnextapi docker-push-local-goapi docker-push-local-static
+
+docker-push-local-vnextapi:
 	docker tag polykube/vnextapi localhost:5000/polykube/vnextapi
 	docker push localhost:5000/polykube/vnextapi
 
-deploy-local-goapi:
+docker-push-local-goapi:
 	docker tag polykube/goapi localhost:5000/polykube/goapi
 	docker push localhost:5000/polykube/goapi
 
-deploy-local-static:
+docker-push-local-static:
 	docker tag polykube/static localhost:5000/polykube/static
 	docker push localhost:5000/polykube/static
 
@@ -70,7 +70,7 @@ docker-aspvnextbase:
 	# TODO: remove this grossness when this patch is taken: https://github.com/docker/docker/issues/7284
 	rm -f Dockerfile
 	cp Dockerfile-aspvnextbase Dockerfile
-	docker build  --no-cache -t polykube/aspvnextbase .
+	docker build -t polykube/aspvnextbase .
 	rm Dockerfile
 
 docker-vnextapi:

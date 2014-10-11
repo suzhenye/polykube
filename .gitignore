@@ -3,3 +3,4 @@ obj/
 bin/
 *.sln.ide/
 *proj.user
+secrets.sh

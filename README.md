@@ -1,8 +1,20 @@
 # polykube
 
-As of now, this is a service, named "polykube" that is comprised of microservices. There are currently three: `vnextapi`, `goapi`, `static`. `vnext` is an ASP.NET vNext application. `goapi` is a golang application (net/http). `static` is just nginx with a simple http/js client that accesses `vnextapi` and `goapi` via CORS-enabled HTTP.
+Polykube is a web service that consists of three microservices.
+
+1. `vnextapi`, which is a Microsoft ASP.NET Web API vNext service. This runs on Mono and uses Owin/Nowin for the server implementation.
+2. `goapi` is a simple proof-of-concept service written in Go (golang).
+3. `static` is a small docker container exposing nginx and some static html/js/css content.
 
 This is deployable using Kubernetes. Tested with a local cluster. Going to test with Azure soon.
+
+## Motivations
+
+* Example of a kubernetes project that is, at least somewhat, non-trivial
+* Exercise some sharding/discovery ideas
+* Demonstrate how Docker can allow projects to create repeatable builds and development environments. A
+  single command should drop you into a working build environment, and a single command should be able to
+  reproduceably build a service container for each component.
 
 ## Implemented
 
@@ -12,24 +24,31 @@ This is deployable using Kubernetes. Tested with a local cluster. Going to test 
 4. Kubernetes deployments
 
 
+## Implementing sooner than soon
+
+1. Multiphase `Dockerfile`s for building in a container and outputting a minimal runnable container
+2. Restructure the container logic for "dev" environments that are linked to their source/dev dirs in the host environment
+
 ## Implementing soon
 
-0. Deployment to Azure
-1. Service discovery via key value stores - probably etcd
-2. Add registrator (may not be possible...)
-3. Consume registrator from vnextapi project
-4. Consume registrator from new golang project (+ docker config for it, kube cfg or it, etc)
-5. Have a static js frontend served by JS that talks to my two backends.
-  - It will show the various backend machines available that they can find from discovery
+1. Service Discovery
+2. Sharding support (and addressing)
+3. Deployment to Azure
+4. Deployment to local Vagrant cluster
+5. Deployment to GCE
+6. Build actual packages for project, rather than packaging source into Docker container
 
+Deployment to Azure, Vagrant and GCE have all had a number of issues. I've only deployed a kubernetes cluster successfully, once, despite trying half a dozen times in each Azure, GCE and Vagrant.
 
 
 ## Dependencies
 
-1. Docker (so, Linux, or boot2docker)
+1. Docker (If you use boot2docker you will have to do some workarounds for the dev containers to be able to mount virtual volumes. Since boot2docker runs a virtual machine with Docker inside, you'll need to do two layers of forwarding.)
 
-2. These `cd`s expect you to have `kubernetes` and `polykube` checked out in ~/Code/. Change them accordingly if you need to. (Note, the Makefile in `polykube` references `kubernetes` at ~/Code/kubernetes, so you have to change it there as well.)
 
+## Assumptions
+
+The commands in this README assume that you have Kubernetes cloned in `~/Code/kubernetes` and this code cloned in `~/Code/polykube`.
 
 
 ## Quick Start
