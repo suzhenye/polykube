@@ -69,28 +69,28 @@ docker: docker-aspvnextbase docker-vnextapi docker-static docker-goapi
 docker-aspvnextbase:
 	# TODO: remove this grossness when this patch is taken: https://github.com/docker/docker/issues/7284
 	rm -f Dockerfile
-	cp Dockerfile-aspvnextbase Dockerfile
+	ln -s Dockerfile-aspvnextbase Dockerfile
 	docker build -t polykube/aspvnextbase .
 	rm Dockerfile
 
 docker-vnextapi:
 	# TODO: remove this grossness when this patch is taken: https://github.com/docker/docker/issues/7284
 	rm -f Dockerfile
-	cp Dockerfile-vnextapi Dockerfile
+	ln -s Dockerfile-vnextapi Dockerfile
 	docker build -t polykube/vnextapi .
 	rm Dockerfile
 
 docker-static:
 	# TODO: remove this grossness when this patch is taken: https://github.com/docker/docker/issues/7284
-	rm -f Dockerfile
-	cp Dockerfile-static Dockerfile
+	rm -f Dockerfile 
+	ln -s Dockerfile-static Dockerfile
 	docker build -t polykube/static .
 	rm Dockerfile
 
 docker-goapi:
 	# TODO: remove this grossness when this patch is taken: https://github.com/docker/docker/issues/7284
 	rm -f Dockerfile
-	cp Dockerfile-goapi Dockerfile
+	ln -s Dockerfile-goapi Dockerfile
 	docker build -t polykube/goapi .
 	rm Dockerfile
 

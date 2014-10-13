@@ -4,7 +4,10 @@ WORKDIR    /gopath/src/goapi
 ADD        ./src/goapi             /gopath/src/goapi/
 RUN        go get goapi
 
-WORKDIR    /gopath/bin/
-CMD        /gopath/bin/goapi
+BUILD /gopath/bin
 
-EXPOSE 80
+FROM scratch
+
+ADD goapi /
+
+ENTRYPOINT ["/goapi"]

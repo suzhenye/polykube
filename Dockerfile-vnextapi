@@ -1,8 +1,6 @@
 FROM            polykube/aspvnextbase
 MAINTAINER      Cole Mickens <cole.mickens@gmail.com>
 
-# everything after this is specific to polykube
-
 ADD             . /root/polykube/
 
 RUN             bash -c "source /root/.kre/kvm/kvm.sh && cd /root/polykube/ && kpm --verbose restore"

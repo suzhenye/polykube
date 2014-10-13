@@ -24,18 +24,15 @@ This is deployable using Kubernetes. Tested with a local cluster. Going to test 
 4. Kubernetes deployments
 
 
-## Implementing sooner than soon
+## Soon
 
 1. Multiphase `Dockerfile`s for building in a container and outputting a minimal runnable container
 2. Restructure the container logic for "dev" environments that are linked to their source/dev dirs in the host environment
 
-## Implementing soon
+## Planned
 
 1. Service Discovery
 2. Sharding support (and addressing)
-3. Deployment to Azure
-4. Deployment to local Vagrant cluster
-5. Deployment to GCE
 6. Build actual packages for project, rather than packaging source into Docker container
 
 Deployment to Azure, Vagrant and GCE have all had a number of issues. I've only deployed a kubernetes cluster successfully, once, despite trying half a dozen times in each Azure, GCE and Vagrant.
@@ -45,27 +42,12 @@ Deployment to Azure, Vagrant and GCE have all had a number of issues. I've only 
 
 1. Docker (If you use boot2docker you will have to do some workarounds for the dev containers to be able to mount virtual volumes. Since boot2docker runs a virtual machine with Docker inside, you'll need to do two layers of forwarding.)
 
+2. Docker must be patched: https://github.com/docker/docker/pull/8021
+
 
 ## Assumptions
 
 The commands in this README assume that you have Kubernetes cloned in `~/Code/kubernetes` and this code cloned in `~/Code/polykube`.
-
-
-## Quick Start
-
-### In interactive, dev-friendly containers
-See below under instructions for `make dev-{servicename}`. Each service must be started individually and run in their own window in this mode.
-
-### In containers
-See below under instructions for `make run-{servicename}`. Each service must be started individually and run in their own window in this mode.
-
-### In kubernetes (locally)
-Start a local kubernetes instance. See below if you don't know how, or the Kubernetes docs. Then, see below under instructions for `make kube-up`
-
-### In kubernetes (azure)
-Whenever I can try to figure it out and write it up...
-
-
 
 
 ## `Makefile`

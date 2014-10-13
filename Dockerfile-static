@@ -13,6 +13,7 @@ RUN \
   chown -R www-data:www-data /var/lib/nginx
 
 # This dance allows us to symlink out `polykube-static-active` to the dev dir for live dev in a container
+# TODO: remove this and make separate dev containers
 RUN ln -s /root/polykube-static                  /root/polykube-static-active
 RUN rm /etc/nginx/sites-enabled/default
 RUN ln -s /root/polykube-static-active/nginx/default    /etc/nginx/sites-enabled/default
