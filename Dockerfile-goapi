@@ -1,13 +1,9 @@
-FROM google/golang
-
+FROM        google/golang
 WORKDIR    /gopath/src/goapi
-ADD        ./src/goapi             /gopath/src/goapi/
+ADD        ./src/goapi /gopath/src/goapi/
 RUN        go get goapi
 
-BUILD /gopath/bin
-
-FROM scratch
-
-ADD goapi /
-
+BUILD      /gopath/bin
+FROM       scratch
+ADD        goapi /
 ENTRYPOINT ["/goapi"]

@@ -21,28 +21,37 @@ This is deployable using Kubernetes. Tested with a local cluster. Going to test 
 1. ASP.NET vNext (development, K Runtime, packaging, etc)
 2. Simple golang service (just to prove out service discovery later)
 3. Docker: using it for deployment, and repeatable builds hopefully (vnextapi is deployed like a dynamic app)
-4. Kubernetes deployments
+4. Local Kubernetes Deployments (aka, "local" on Docker; not "vagrant" with Docker on Vagrant VMs)
 
+## Recently added
+
+0. Fixed NuGet.Config (CASING IS VERY IMPORTANT FOR THIS FILENAME) so that it builds again against myget.org properly.
+1. Multiphase `Dockerfile`s: GoApi service
 
 ## Soon
 
-1. Multiphase `Dockerfile`s for building in a container and outputting a minimal runnable container
-2. Restructure the container logic for "dev" environments that are linked to their source/dev dirs in the host environment
+0. Fix GoApi service so that it's properly static, and test it, etc.
+
+1. Multiphase `Dockerfile`s: VNext service: Need to output a mono-3.10 DEB package, give it to the next build to install for more minimal image
+
+2. Stop using the final service containers as a psuedo-dev environment. Instead, setup actual Dockerfiles that are only responsible for dropping into a proper build environment. This will also simplify some of the trickery occuring in the prod service images now that are a result of enabling the dev containers.
+
+3. Evaluate packaging my service bits into a DEB or TAR or something as well. Right now it's just shuffling around binaries, which might be fine.
 
 ## Planned
 
 1. Service Discovery
 2. Sharding support (and addressing)
-6. Build actual packages for project, rather than packaging source into Docker container
-
-Deployment to Azure, Vagrant and GCE have all had a number of issues. I've only deployed a kubernetes cluster successfully, once, despite trying half a dozen times in each Azure, GCE and Vagrant.
+3. Tested deployment to Azure (sporadically fails to verify master, sometimes works)
+3. Tested deployment to GCE (fails to verfiy master, has worked once)
+3. Tested deployment to Vagrant (fails to verify master, has never worked)
 
 
 ## Dependencies
 
-1. Docker (If you use boot2docker you will have to do some workarounds for the dev containers to be able to mount virtual volumes. Since boot2docker runs a virtual machine with Docker inside, you'll need to do two layers of forwarding.)
+1. Docker (Since boot2docker runs a virtual machine with Docker inside, you'll need to do two layers of forwarding to enable volume mounting for the development containers.)
 
-2. Docker must be patched: https://github.com/docker/docker/pull/8021
+2. Docker must be patched to support nested builds: https://github.com/docker/docker/pull/8021
 
 
 ## Assumptions
@@ -66,6 +75,9 @@ Push all of the docker images to the local docker repo started with `make local-
 These commands will run the service containers with the ports as described below (the Docker column).
 
 ### `make dev-{servicename}`
+
+(This section currently does not match the real state of the code...)
+
 They modify `docker run` command with the standard service containers (same ports as with `make run-{servicename}`) to map in the source for the service and then execute commands to ensure that the dev code is being served from the container. This allows you to edit the source code on your host machine, and then rebuild and run it immediately in the container.
 
 ```
@@ -109,14 +121,6 @@ Bring up all of the kubernetes replicationControllers and services.
 Bring down all of the kubernetes replicationControllers and services. (This doesn't kill all docker containers, not sure if I'm doing something wrong...)
 
 ## Notes
-
-### Starting a local kubernetes cluster
-
-```
-git clone https://github.com/GoogleCloudPlatform/kubernetes.git ~/Code/kubernetes
-cd ~/Code/kubernetes
-./hack/local-up-cluster.sh
-```
 
 ### Ports
 
