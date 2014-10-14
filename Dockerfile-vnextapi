@@ -1,11 +1,8 @@
-FROM            polykube/aspvnextbase
-MAINTAINER      Cole Mickens <cole.mickens@gmail.com>
+FROM     polykube/aspvnextbase
 
-ADD             . /root/polykube/
-
-RUN             bash -c "source /root/.kre/kvm/kvm.sh && cd /root/polykube/ && kpm --verbose restore"
-
-WORKDIR         /root/polykube/src/Polykube.vNextApi/
-CMD             /root/polykube/src/Polykube.vNextApi/start_k_daemon.sh
+ADD      ./src/vnextapi  /root/polykube/vnextapi
+WORKDIR  /root/polykube/vnextapi/
+RUN      ["make"]
+CMD      ["make", "run"]
 
 EXPOSE 8000

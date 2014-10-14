@@ -8,37 +8,35 @@ Polykube is a web service that consists of three microservices.
 
 This is deployable using Kubernetes. Tested with a local cluster. Going to test with Azure soon.
 
+
 ## Motivations
 
 * Example of a kubernetes project that is, at least somewhat, non-trivial
 * Exercise some sharding/discovery ideas
-* Demonstrate how Docker can allow projects to create repeatable builds and development environments. A
-  single command should drop you into a working build environment, and a single command should be able to
-  reproduceably build a service container for each component.
 
-## Implemented
+## Features - Already Done
 
 1. ASP.NET vNext (development, K Runtime, packaging, etc)
 2. Simple golang service (just to prove out service discovery later)
 3. Docker: using it for deployment, and repeatable builds hopefully (vnextapi is deployed like a dynamic app)
 4. Local Kubernetes Deployments (aka, "local" on Docker; not "vagrant" with Docker on Vagrant VMs)
 
-## Recently added
+
+## Features - Added Recently
 
 0. Fixed NuGet.Config (CASING IS VERY IMPORTANT FOR THIS FILENAME) so that it builds again against myget.org properly.
 1. Multiphase `Dockerfile`s: GoApi service
 
-## Soon
 
-0. Fix GoApi service so that it's properly static, and test it, etc.
+## Features - Planned
 
-1. Multiphase `Dockerfile`s: VNext service: Need to output a mono-3.10 DEB package, give it to the next build to install for more minimal image
+0. Determine if Go Api is properly staticly built. There's a warning about getaddrinfo as it is now.
 
-2. Stop using the final service containers as a psuedo-dev environment. Instead, setup actual Dockerfiles that are only responsible for dropping into a proper build environment. This will also simplify some of the trickery occuring in the prod service images now that are a result of enabling the dev containers.
+1. Investigate if `kpm pack` adds any benefit whatsoever
 
-3. Evaluate packaging my service bits into a DEB or TAR or something as well. Right now it's just shuffling around binaries, which might be fine.
+2. Fix vnextapi (broke with KRE-alpha4, so bumped pkgs up to alpha4 and will fix soon)
 
-## Planned
+## Features - Longer Term
 
 1. Service Discovery
 2. Sharding support (and addressing)
@@ -62,8 +60,17 @@ The commands in this README assume that you have Kubernetes cloned in `~/Code/ku
 ## `Makefile`
 
 ### `make docker`
-This will build the docker images for the various services.
-(Also: `make docker-vnextapi` or `make docker-static` or `make docker-goapi`)
+This will build all of the production service container images. `make docker-{static,goapi,vnextapi}` or invidual builds.
+
+### `make docker-dev`
+This will build all of the production service container images. `make docker-{static,goapi,vnextapi}-dev` or invidual builds.
+
+### `make run-{static,goapi,vnextapi}`
+This will launch the production container locally.
+
+### `make run-{static,goapi,vnextapi}-dev`
+This will launch the development container locally with volumes mapped to source on the host.
+
 
 ### `make local-docker-repo`
 Start a local docker repo (used to serve images for Kubernetes in local configuration)
@@ -71,54 +78,13 @@ Start a local docker repo (used to serve images for Kubernetes in local configur
 ### `make deploy-local`
 Push all of the docker images to the local docker repo started with `make local-docker-repo`. This is only required for local kubernetes deployment.
 
-### `make run-{servicename}`
-These commands will run the service containers with the ports as described below (the Docker column).
-
-### `make dev-{servicename}`
-
-(This section currently does not match the real state of the code...)
-
-They modify `docker run` command with the standard service containers (same ports as with `make run-{servicename}`) to map in the source for the service and then execute commands to ensure that the dev code is being served from the container. This allows you to edit the source code on your host machine, and then rebuild and run it immediately in the container.
-
-```
-cole@chimera>> make dev-vnextapi
-
-root@bd91580b2abf:~/polykube-dev/src/Polykube.vNextApi# ls
-# ExampleController.cs  Startup.cs  config.json  k_daemon.sh  project.json  start_k_daemon.sh
-
-root@bd91580b2abf:~/polykube-dev/src/Polykube.vNextApi# k web
-# press [enter], `k web` will exit
-# edit the csharp source code in the source tree
-
-root@bd91580b2abf:~/polykube-dev/src/Polykube.vNextApi# k web
-# observe the changes!
-```
-
-```
-cole@chimera>> make dev-goapi
-
-# this isn't finished yet
-```
-
-```
-cole@chimera>> make dev-static
-
-[ root@f21a88b6c0b0:~ ]$ ls /root/polykube-static-active/www
-# 404.html  css/  index.html  js/
-
-[ root@f21a88b6c0b0:~ ]$ nginx
-# press [ctrl]+c, nginx will exit
-# edit the static files in the source tree
-
-[ root@f21a88b6c0b0:~ ]$ nginx
-# observe the changes!
-```
 
 ### `make kube-up`
 Bring up all of the kubernetes replicationControllers and services.
 
 ### `make kube-down`
 Bring down all of the kubernetes replicationControllers and services. (This doesn't kill all docker containers, not sure if I'm doing something wrong...)
+
 
 ## Notes
 
@@ -134,8 +100,3 @@ Docker port | Kube ctrlr | Kube srvc | Internal | Service
       20020 |      30020 |     10020 |     8000 | vnextapi
       20000 |      30000 |     10000 |       80 | static
       20010 |      30010 |     10010 |       80 | goapi
-
-### Bugs
-
-- `kpm restore` fails to find nuget.config, even when it's next to global.json...
-- `k_daemon.sh` existing

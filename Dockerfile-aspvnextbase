@@ -1,23 +1,21 @@
-FROM            ubuntu:latest
-MAINTAINER      Cole Mickens <cole.mickens@gmail.com>
-
-RUN     apt-get -qq update
-
-RUN     apt-get -qqy install libtool autoconf g++ gettext make git unzip && \
+FROM    ubuntu:latest
+RUN     apt-get -qq update && \
+        apt-get -qqy install libtool autoconf g++ gettext make git unzip checkinstall && \
         git clone -b mono-3.10.0-branch https://github.com/mono/mono /tmp/mono && \
         cd /tmp/mono && \
         ./autogen.sh --prefix=/usr && \
         make get-monolite-latest && \
         make && \
-        make install && \
-        cd / && \
-        rm -rf /tmp/mono
-RUN     mono --version
+        checkinstall -Dy make install
 
-ENV     HOME  /root
+BUILD   /tmp/mono
+FROM    ubuntu:latest
+ENV     HOME /root
+ADD     mono_0-1_amd64.deb /tmp/mono_0-1_amd64.deb
+RUN     apt-get -qq update && \
+        apt-get -qqy install curl unzip make && \
+        dpkg -i /tmp/mono_0-1_amd64.deb
 RUN     mozroots --import --sync
 RUN     curl https://raw.githubusercontent.com/aspnet/Home/master/kvminstall.sh > /root/kvminstall.sh && \
         sh /root/kvminstall.sh && \
-        /bin/bash -c "source ~/.kre/kvm/kvm.sh && kvm upgrade; echo ExitCode=$?"
-
-RUN     /bin/bash -c "cd ~/ && source ~/.kre/kvm/kvm.sh && kpm restore"
+        bash -c "source ~/.kre/kvm/kvm.sh && kvm upgrade"

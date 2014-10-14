@@ -2,7 +2,9 @@ server {
   listen          0.0.0.0:80;
   server_name     localhost;
 
-  root /root/polykube-static-active/www;
+  error_log /root/polykube/nginx_debug.log debug;
+
+  root /root/polykube/static/www;
 
   location / {
     index index.html;

@@ -1,27 +1,5 @@
-# Copied from https://github.com/dockerfile/nginx/blob/master/Dockerfile
-# But I don't like their file
+FROM dockerfile/nginx
 
-FROM dockerfile/ubuntu
-
-# Install Nginx.
-RUN \
-  add-apt-repository -y ppa:nginx/stable && \
-  apt-get update && \
-  apt-get install -y nginx && \
-  rm -rf /var/lib/apt/lists/* && \
-  echo "\ndaemon off;" >> /etc/nginx/nginx.conf && \
-  chown -R www-data:www-data /var/lib/nginx
-
-# This dance allows us to symlink out `polykube-static-active` to the dev dir for live dev in a container
-# TODO: remove this and make separate dev containers
-RUN ln -s /root/polykube-static                  /root/polykube-static-active
-RUN rm /etc/nginx/sites-enabled/default
-RUN ln -s /root/polykube-static-active/nginx/default    /etc/nginx/sites-enabled/default
-
-RUN chmod +x /root       # nginx needs parent dirs to be executable
-
-ADD ./src/static /root/polykube-static/
-
-CMD ["nginx"]
-
-EXPOSE 80
+ADD ./src/static/sites-enabled  /etc/nginx/sites-enabled
+ADD ./src/static/www            /root/polykube/static/www
+RUN chmod +x /root && chmod +x /root/polykube && chmod +x /root/polykube/static
