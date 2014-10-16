@@ -1,42 +1,32 @@
 # polykube
 
-Polykube is a web service that consists of three microservices.
+Polykube is a Kubernetes-deployable web service that consists of three microservices:
 
 1. `vnextapi`, which is a Microsoft ASP.NET Web API vNext service. This runs on Mono and uses Owin/Nowin for the server implementation.
 2. `goapi` is a simple proof-of-concept service written in Go (golang).
 3. `static` is a small docker container exposing nginx and some static html/js/css content.
 
-This is deployable using Kubernetes. Tested with a local cluster. Going to test with Azure soon.
-
-
 ## Motivations
 
-* Example of a kubernetes project that is, at least somewhat, non-trivial
-* Exercise some sharding/discovery ideas
+### A non-trivial Kubernetes example
 
-## Features - Already Done
+At the time of writing, the Kubernetes examples were lacking.
 
-1. ASP.NET vNext (development, K Runtime, packaging, etc)
-2. Simple golang service (just to prove out service discovery later)
-3. Docker: using it for deployment, and repeatable builds hopefully (vnextapi is deployed like a dynamic app)
-4. Local Kubernetes Deployments (aka, "local" on Docker; not "vagrant" with Docker on Vagrant VMs)
+### Docker rocks, empowering devs rocks
 
+Docker empowers development - building anyone of the microservices takes a single command from any Linux host with docker installed. It's also one line to drop into a live environment where you can build source that you can edit in your local git repo on your host. This means that you can have a host machine with no build tools or libraries installed, and still type a single command and get 
 
-## Features - Added Recently
+### Others
 
-0. Fixed NuGet.Config (CASING IS VERY IMPORTANT FOR THIS FILENAME) so that it builds again against myget.org properly.
-1. Multiphase `Dockerfile`s: GoApi service
+...
 
-
-## Features - Planned
+## Todo
 
 0. Determine if Go Api is properly staticly built. There's a warning about getaddrinfo as it is now.
 
-1. Investigate if `kpm pack` adds any benefit whatsoever
+1. Investigate if `kpm pack` adds any benefit (will it build? produce a versioned binary to container-ize separately from the source container?)
 
-2. Fix vnextapi (broke with KRE-alpha4, so bumped pkgs up to alpha4 and will fix soon)
-
-## Features - Longer Term
+## Planned Features
 
 1. Service Discovery
 2. Sharding support (and addressing)
