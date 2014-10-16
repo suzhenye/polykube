@@ -16,9 +16,9 @@
         "web": "Microsoft.AspNet.Hosting --server Nowin.vNext",
         "web1": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5000"
     },
-    "frameworks": {
-        "net451" : {  },
-        "k10": {  }
+    "compilationOptions": {
+        "compilationOptions": {
+            "languageVersion": "experimental"
+        }
     }
 }
-
