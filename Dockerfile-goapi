@@ -1,8 +1,6 @@
 FROM  google/golang
 ADD   ./src/goapi /gopath/src/goapi/
-RUN   \
-      cd /gopath/src/goapi && \
-      make
+RUN   cd /gopath/src/goapi && make
 
 BUILD /gopath/bin
 FROM  scratch
