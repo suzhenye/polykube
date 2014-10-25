@@ -1,16 +1,20 @@
 FROM    ubuntu:latest
 ENV     HOME /root
 
-RUN     apt-get -qq update && apt-get -qqy install curl unzip build-essential
+RUN     bash -c apt-get -qq update
+RUN     apt-get -qqy install curl unzip build-essential
+RUN     apt-get clean autoclean
+RUN     apt-get autoremove -y
+RUN     rm -rf /var/lib/{apt,dpkg,cache,log}/
 
 RUN     curl http://download.mono-project.com/repo/xamarin.gpg > /tmp/xamarin.gpg && \
         apt-key add /tmp/xamarin.gpg && \
         echo "deb http://download.mono-project.com/repo/debian wheezy main" > /etc/apt/sources.list.d/mono-xamarin.list
 
-RUN     apt-get -qq update && apt-get -qqy install mono-complete
+RUN     apt-get -qq update && apt-get -qqy install mono-complete && apt-get clean autoclean
 
 RUN     mozroots --import --sync
 
-RUN     curl https://raw.githubusercontent.com/aspnet/Home/master/kvminstall.sh > /root/kvminstall.sh && \
+RUN     curl https://raw.githubusercontent.com/aspnet/Home/master/kvminstall.sh > /root/kvminstall.sh && apt-get clean autoclean && apt-get autoremove -y && rm -rf /var/lib/{apt,dpkg,cache,log}/ && \
         sh /root/kvminstall.sh && \
         bash -c "source ~/.kre/kvm/kvm.sh && kvm upgrade"
