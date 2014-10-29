@@ -12,28 +12,9 @@
                     "id": "staticController",
                     "containers": [
                         {
-                            "name": "registrator",
-                            "image": "progrium/registrator",
-                            "command": "etcd://10.0.0.2:4001/blah",
-                            "env": [
-                                {
-                                    "key": "DOCKER_HOST",
-                                    "value": "unix:///mnt/host/var/run/docker.sock"
-                                }
-                            ],
-                            "volumeMounts": [
-                                {
-                                    "name": "varrun",
-                                    "mountPath": "/mnt/host/var/run",
-                                    "readOnly": true
-                                }
-                            ]
-                        }
-                    ],
-                    "volumes": [
-                        {
-                            "name": "varrun",
-                            "source": { "hostDir": { "path": "/var/run" } }
+                            "name": "static",
+                            "image": "localhost:5000/polykube/static",
+                            "ports": [{ "containerPort": 80, "hostPort": 30000 }]
                         }
                     ]
                 }
