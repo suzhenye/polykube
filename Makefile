@@ -12,9 +12,6 @@ all:
 
 
 ## Kube helpers
-kube-local:
-	$(KUBEROOT)/hack/local-up-cluster.sh
-
 kube-up: kube-up-vnextapi kube-up-goapi kube-up-static
 kube-down: kube-down-vnextapi kube-down-goapi kube-down-static
 
@@ -43,12 +40,12 @@ kube-down-goapi:
 
 
 
-## Local docker stuff
+## Used to push docker images to a local repo or a GCS repo, etc
 docker-repo-local:
 	docker run -e SETTINGS_FLAVOR=dev -v /tmp/registry:/tmp/registry -p 5000:5000 registry
 
-docker-repo-s3:
-	docker run -e SETTINGS_FLAVOR=s3 -p 5000:5000 registry
+docker-repo-gcs:
+	docker run -e GCS_BUCKET=polykube-docker-registry -e GCP_OAUTH2_REFRESH_TOKEN=1/6PvQsme6855MyOf8rg54vPE48TD0CS-HW_XXunypQmkMEudVrK5jSpoR30zcRFq6 -p 5000:5000 google/docker-registry
 
 docker-push-local: docker-push-local-vnextapi docker-push-local-goapi docker-push-local-static
 
@@ -101,7 +98,7 @@ run-vnextapi:
 
 
 ## Build/run interactive dev containers
-# (goapi needs its own dev container, build we build a minimal run-only container)
+# (goapi needs its own dev container)
 # (static is already a most minimal image, even for a dev env)
 #    (this will change as other build steps are added for html/css/js)
 # (vnextapi doesn't pack into a minimal binary yet, so dev==prod container)

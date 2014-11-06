@@ -8,23 +8,21 @@ Polykube is a Kubernetes-deployable web service that consists of three microserv
 
 ## Motivations
 
-### A non-trivial Kubernetes example
+1. Another Kubernetes example
 
-At the time of writing, the Kubernetes examples were lacking.
+2. Learn docker and friends, Kubernetes, etc
 
-### Docker rocks, empowering devs rocks
+3. Want to learn the best possible way to design services
 
-Docker empowers development - building anyone of the microservices takes a single command from any Linux host with docker installed. It's also one line to drop into a live environment where you can build source that you can edit in your local git repo on your host. This means that you can have a host machine with no build tools or libraries installed, and still type a single command and get 
-
-### Others
-
-...
-
-## Todo
+## Notes to self
 
 0. Determine if Go Api is properly staticly built. There's a warning about getaddrinfo as it is now.
 
 1. Investigate if `kpm pack` adds any benefit (will it build? produce a versioned binary to container-ize separately from the source container?)
+
+2. Revisit minimalistic docker images when Dockerfile2 lands or this patch: https://github.com/docker/docker/pull/8021
+
+3. Still not sure what the easiest way to do docker registry is
 
 ## Planned Features
 
@@ -33,13 +31,6 @@ Docker empowers development - building anyone of the microservices takes a singl
 3. Tested deployment to Azure (sporadically fails to verify master, sometimes works)
 3. Tested deployment to GCE (fails to verfiy master, has worked once)
 3. Tested deployment to Vagrant (fails to verify master, has never worked)
-
-
-## Dependencies
-
-1. Docker (Since boot2docker runs a virtual machine with Docker inside, you'll need to do two layers of forwarding to enable volume mounting for the development containers.)
-
-2. Docker must be patched to support nested builds: https://github.com/docker/docker/pull/8021
 
 
 ## Assumptions
@@ -75,6 +66,13 @@ Bring up all of the kubernetes replicationControllers and services.
 ### `make kube-down`
 Bring down all of the kubernetes replicationControllers and services. (This doesn't kill all docker containers, not sure if I'm doing something wrong...)
 
+
+## How to Deploy
+
+1. Bring up the docker registry
+2. Push the docker images to the docker registry
+3. Bring up the other helping services
+4. Turn on the replication controllers for all of them
 
 ## Notes
 

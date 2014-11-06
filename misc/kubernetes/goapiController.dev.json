@@ -12,6 +12,15 @@
                     "id": "goapiController",
                     "containers": [
                         {
+                            "name": "registry",
+                            "image": "google/docker-registry",
+                            "ports": [{ "containerPort": 5000, "hostPort": 5000 }],
+                            "env": [
+                                { "key": "GCP_OAUTH2_REFRESH_TOKEN", "value": "1/6PvQsme6855MyOf8rg54vPE48TD0CS-HW_XXunypQmkMEudVrK5jSpoR30zcRFq6", },
+                                { "key": "GCS_BUCKET", "value": "polykube-docker-registry", },
+                            ]
+                        },
+                        {
                             "name": "goapi",
                             "image": "localhost:5000/polykube/goapi",
                             "ports": [{ "containerPort": 80, "hostPort": 30010 }]

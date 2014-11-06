@@ -9,5 +9,6 @@
     },
     "selector": {
         "name": "static"
-    }
+    },
+    "createExternalLoadBalancer": true
 }

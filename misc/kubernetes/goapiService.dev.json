@@ -9,5 +9,6 @@
     },
     "selector": {
         "name": "goapi"
-    }
+    },
+    "createExternalLoadBalancer": true
 }

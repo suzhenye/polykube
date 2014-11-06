@@ -9,5 +9,6 @@
     },
     "selector": {
         "name": "vnextapi"
-    }
+    },
+    "createExternalLoadBalancer": true
 }
