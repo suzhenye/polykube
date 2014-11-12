@@ -15,6 +15,15 @@ all:
 kube-up: kube-up-vnextapi kube-up-goapi kube-up-static
 kube-down: kube-down-vnextapi kube-down-goapi kube-down-static
 
+kube-up-services:
+	$(KUBECFG) -c misc/kubernetes/staticService.dev.json create services
+	$(KUBECFG) -c misc/kubernetes/vnextapiService.dev.json create services
+	$(KUBECFG) -c misc/kubernetes/goapiService.dev.json create services
+kube-up-controllers:
+	$(KUBECFG) -c misc/kubernetes/staticController.dev.json create replicationControllers
+	$(KUBECFG) -c misc/kubernetes/vnextapiController.dev.json create replicationControllers
+	$(KUBECFG) -c misc/kubernetes/goapiController.dev.json create replicationControllers
+
 kube-up-static:
 	$(KUBECFG) -c misc/kubernetes/staticController.dev.json create replicationControllers
 	$(KUBECFG) -c misc/kubernetes/staticService.dev.json create services
@@ -102,7 +111,7 @@ run-vnextapi:
 # (static is already a most minimal image, even for a dev env)
 #    (this will change as other build steps are added for html/css/js)
 # (vnextapi doesn't pack into a minimal binary yet, so dev==prod container)
-run-static-dev:
+dev-static:
 	docker run -it -p 20000:80 \
 		-v $(CURDIR)/src/static:/root/polykube/static \
 		-w /root/polykube/static \
@@ -112,14 +121,14 @@ docker-goapi-dev:
 	rm -f Dockerfile
 	ln -s Dockerfile-goapi-dev Dockerfile
 	docker build -t polykube/goapi-dev .
-run-goapi-dev:
+dev-goapi:
 	docker run -it -p 20010:80 \
 		-v $(CURDIR)/src/goapi:/gopath/src/goapi \
 		-w /gopath/src/goapi  \
 		polykube/goapi-dev /bin/bash
 
-run-vnextapi-dev:
-	docker run -it -p 20020:80 \
+dev-vnextapi:
+	docker run -it -p 20020:8000 \
 		-v $(CURDIR)/src/vnextapi:/root/polykube/vnextapi \
 		-w /root/polykube/vnextapi/ \
 		polykube/vnextapi /bin/bash

@@ -1,5 +1,7 @@
 FROM  google/golang
+
 ADD   ./src/goapi /gopath/src/goapi/
+
 RUN   cd /gopath/src/goapi && make
 
 CMD   ["/gopath/bin/goapi"]

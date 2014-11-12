@@ -1,8 +1,11 @@
-FROM     polykube/aspvnextbase
+FROM       polykube/aspvnextbase
 
-ADD      ./src/vnextapi  /root/polykube/vnextapi
-WORKDIR  /root/polykube/vnextapi/
-RUN      ["make"]
-CMD      ["make", "run"]
+ADD        ./src/vnextapi  /root/polykube/vnextapi
 
-EXPOSE 8000
+WORKDIR    /root/polykube/vnextapi/
+
+RUN        ["make"]
+
+CMD        ["make", "run"]
+
+EXPOSE     8000

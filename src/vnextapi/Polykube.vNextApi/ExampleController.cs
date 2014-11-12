@@ -7,7 +7,7 @@ using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Builder;
 using Microsoft.Framework.DependencyInjection;
 
-using RestSharp;
+using Newtonsoft.Json;
 
 namespace Agora.Api
 {
@@ -18,10 +18,9 @@ namespace Agora.Api
 
         public string Index()
         {
-            var result = String.Format(
-                CultureInfo.InvariantCulture,
-                "This is a lousy string.",
-                0);
+            var envDict = Environment.GetEnvironmentVariables();
+
+            var result = JsonConvert.SerializeObject(envDict);
 
             return result;
         }

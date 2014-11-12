@@ -9,7 +9,7 @@
         "System.Diagnostics.Debug": "4.0.10.0",
         "System.Diagnostics.Tools": "4.0.0.0",
         "System.Globalization": "4.0.10.0",
-        "RestSharp": "104.4.0",
+	"Newtonsoft.Json": "6.0.5",
         "Nowin.vNext":  ""
     },
     "commands": {
