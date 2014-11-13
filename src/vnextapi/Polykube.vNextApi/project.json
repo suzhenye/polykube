@@ -1,11 +1,11 @@
 ﻿{
     "dependencies": {
-        "Microsoft.AspNet.Diagnostics": "1.0.0-alpha4",
-        "Microsoft.AspNet.Hosting": "1.0.0-alpha4",
-        "Microsoft.AspNet.Mvc": "6.0.0-alpha4",
-        "Microsoft.AspNet.Server.WebListener": "1.0.0-alpha4",
-        "Microsoft.AspNet.Routing": "1.0.0-alpha4",
-        "Microsoft.Framework.ConfigurationModel.Json": "1.0.0-alpha4",
+        "Microsoft.AspNet.Diagnostics": "1.0.0-beta1",
+        "Microsoft.AspNet.Hosting": "1.0.0-beta1",
+        "Microsoft.AspNet.Mvc": "6.0.0-beta1",
+        "Microsoft.AspNet.Server.WebListener": "1.0.0-beta1",
+        "Microsoft.AspNet.Routing": "1.0.0-beta1",
+        "Microsoft.Framework.ConfigurationModel.Json": "1.0.0-beta1",
         "System.Diagnostics.Debug": "4.0.10.0",
         "System.Diagnostics.Tools": "4.0.0.0",
         "System.Globalization": "4.0.10.0",

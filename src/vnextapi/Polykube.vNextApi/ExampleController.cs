@@ -18,9 +18,9 @@ namespace Agora.Api
 
         public string Index()
         {
-            var envDict = Environment.GetEnvironmentVariables();
-
-            var result = JsonConvert.SerializeObject(envDict);
+            // var envDict = Environment.GetEnvironmentVariables();
+            // var result = JsonConvert.SerializeObject(envDict);
+	    var result = "This is a test.";
 
             return result;
         }

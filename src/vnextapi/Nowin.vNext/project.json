@@ -1,7 +1,7 @@
 ﻿{
     "dependencies": {
         "Nowin": "0.12.1",
-        "Microsoft.AspNet.Hosting": "1.0.0-alpha4",
-        "Microsoft.AspNet.Owin": "1.0.0-alpha4"
+        "Microsoft.AspNet.Hosting": "1.0.0-beta1",
+        "Microsoft.AspNet.Owin": "1.0.0-beta1"
     }
 }

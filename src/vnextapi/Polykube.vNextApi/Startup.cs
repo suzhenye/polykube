@@ -10,6 +10,8 @@ namespace Agora.Api
     {
         public void Configure(IApplicationBuilder app)
         {
+	    app.UseWelcomePage();
+        /*
             app.UseServices(services =>
             {
                 services.AddMvc();
@@ -39,6 +41,7 @@ namespace Agora.Api
                         controller = "Example"
                     });
             });
+	*/
         }
     }
 }
