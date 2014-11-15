@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 
 namespace Agora.Api
 {
+    [Route("/")]
     public class ExampleController : IActionFilter, IResultFilter
     {
         private Stopwatch _timer1;
@@ -20,8 +21,7 @@ namespace Agora.Api
         {
             // var envDict = Environment.GetEnvironmentVariables();
             // var result = JsonConvert.SerializeObject(envDict);
-	    var result = "This is a test.";
-
+            var result = "This is a test.";
             return result;
         }
 

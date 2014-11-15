@@ -73,13 +73,7 @@ docker-push-local-vnextapi:
 
 
 ## Build/run "production" images
-docker: docker-aspvnextbase docker-vnextapi docker-static docker-goapi
-
-docker-aspvnextbase:
-	rm -f Dockerfile
-	ln -s Dockerfile-aspvnextbase Dockerfile
-	docker build -t polykube/aspvnextbase .
-	rm Dockerfile
+docker: docker-vnextapi docker-static docker-goapi
 
 docker-static:
 	rm -f Dockerfile 

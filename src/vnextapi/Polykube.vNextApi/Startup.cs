@@ -8,15 +8,17 @@ namespace Agora.Api
 {
     public class Startup
     {
+	public void ConfigureServices(IServiceCollection services)
+	{
+	     services.AddMvc();
+	}
+
         public void Configure(IApplicationBuilder app)
         {
-	    app.UseWelcomePage();
-        /*
-            app.UseServices(services =>
-            {
-                services.AddMvc();
-            });
+    	    app.UseMvc();
+        }
 
+	    /*
             app.Use(async (context, next) =>
             {
                 try
@@ -30,7 +32,9 @@ namespace Agora.Api
                     Console.WriteLine(ex);
                 }
             });
+	    */
 
+	    /*
             app.UseMvc(routes =>
             {
                 routes.MapRoute( 
@@ -41,7 +45,6 @@ namespace Agora.Api
                         controller = "Example"
                     });
             });
-	*/
-        }
+	    */
     }
 }
