@@ -6,7 +6,7 @@ using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting.Server;
 using Microsoft.AspNet.Owin;
 using Microsoft.Framework.ConfigurationModel;
- 
+
 namespace Nowin.vNext
 {
     public class NowinServerFactory : IServerFactory
@@ -20,12 +20,22 @@ namespace Nowin.vNext
 
         public IServerInformation Initialize(IConfiguration configuration)
         {
-            // TODO: Parse config
-            var builder = ServerBuilder.New()
-                                       .SetAddress(IPAddress.Any)
-                                       .SetPort(8000)
-                                       .SetOwinApp(OwinWebSocketAcceptAdapter.AdaptWebSockets(HandleRequest));
+            var builder = ServerBuilder.New();
 
+            string urls = "";
+            configuration.TryGet("server.urls", out urls);
+
+            var urlsSplit = urls.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+            if(urlsSplit.Length != 1)
+            {
+                throw new InvalidOperationException("Nowin can wants to listen on a signle port.");
+            }
+
+            var urlParsed = new Uri(urlsSplit[0]);
+
+            builder.SetAddress(IPAddress.Any);
+            builder.SetPort(urlParsed.Port);
+            builder.SetOwinApp(HandleRequest);
             return new NowinServerInformation(builder);
         }
 

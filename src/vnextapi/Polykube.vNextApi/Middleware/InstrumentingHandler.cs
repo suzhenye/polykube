@@ -1,29 +1,13 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Globalization;
 using Microsoft.AspNet.Mvc;
-using Microsoft.AspNet.Builder;
-using Microsoft.Framework.DependencyInjection;
 
-using Newtonsoft.Json;
-
-namespace Agora.Api
+namespace Polykube.vNextApi.Middleware
 {
-    [Route("/")]
-    public class ExampleController : IActionFilter, IResultFilter
+    public class InstrumentingHandler
     {
         private Stopwatch _timer1;
         private Stopwatch _timer2;
-
-        public string Index()
-        {
-            // var envDict = Environment.GetEnvironmentVariables();
-            // var result = JsonConvert.SerializeObject(envDict);
-            var result = "This is a test.";
-            return result;
-        }
 
         public void OnActionExecuting(ActionExecutingContext context)
         {
@@ -34,7 +18,7 @@ namespace Agora.Api
         {
             var time = _timer1.ElapsedMilliseconds;
             context.HttpContext.Response.Headers.Add(
-                "ActionElapsedTime", 
+                "ActionElapsedTime",
                 new string[] { time.ToString(CultureInfo.InvariantCulture) + " ms" });
         }
 
@@ -47,7 +31,7 @@ namespace Agora.Api
         {
             var time = _timer2.ElapsedMilliseconds;
             context.HttpContext.Response.Headers.Add(
-                "ResultElapsedTime", 
+                "ResultElapsedTime",
                 new string[] { time.ToString(CultureInfo.InvariantCulture) + " ms" });
         }
     }
