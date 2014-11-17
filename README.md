@@ -2,17 +2,18 @@
 
 Polykube is a Kubernetes-deployable web service that consists of three microservices:
 
-1. `vnextapi`, which is a Microsoft ASP.NET Web API vNext service. This runs on Mono and uses Owin/Nowin for the server implementation.
-2. `goapi` is a simple proof-of-concept service written in Go (golang).
-3. `static` is a small docker container exposing nginx and some static html/js/css content.
+1. `vnextapi`, which is an [ASP.NET 5](http://www.asp.net/vnext/overview/aspnet-vnext/aspnet-5-overview), [MVC 6 Web API](http://www.asp.net/vnext/overview/aspnet-vnext/create-a-web-api-with-mvc-6) service (hosted by [Kestrel](https://githu
+b.com/aspnet/KestrelHttpServer)).
+2. `goapi` is a simple proof-of-concept service written in [Go](http://golang.org).
+3. `static` is [nginx](http://nginx.org) exposing some static html/js/css content.
+
 
 ## Motivations
 
-1. Another Kubernetes example
+1. I like deployment orchestration/infrastructure technology.
 
-2. Learn docker and friends, Kubernetes, etc
+2. Learn docker, Kubernetes, aspnet5, etc.
 
-3. Want to learn the best possible way to design services
 
 ## Notes to self
 
@@ -22,7 +23,16 @@ Polykube is a Kubernetes-deployable web service that consists of three microserv
 
 2. Revisit minimalistic docker images when Dockerfile2 lands or this patch: https://github.com/docker/docker/pull/8021
 
-3. Still not sure what the easiest way to do docker registry is
+3. Document docker-registry strategy for local testing and for prepping for a real cloud deploy
+
+4. Investigate static hard-coded routes for ASP.NET 5. I don't know if I like the attribute based routing. It's nice to have an easy mental model. Request comes in, and there's the class which contains the list of routes. Versus searching through all classes accessible and seeing if they have a route attribute.
+
+
+## ASPNET5 Problems
+
+1. `kpm restore` and `NuGet.Config` locations (see `src/vnextapi/Makefile`)
+
+2. Can't get `Kestrel` or `Microsoft.AspNet.Server.WebListener` to work. Only `Nowin` works.
 
 ## Planned Features
 
@@ -43,36 +53,33 @@ The commands in this README assume that you have Kubernetes cloned in `~/Code/ku
 ### `make docker`
 This will build all of the production service container images. `make docker-{static,goapi,vnextapi}` or invidual builds.
 
-### `make docker-dev`
-This will build all of the production service container images. `make docker-{static,goapi,vnextapi}-dev` or invidual builds.
-
 ### `make run-{static,goapi,vnextapi}`
 This will launch the production container locally.
 
-### `make run-{static,goapi,vnextapi}-dev`
+### `make dev-{static,goapi,vnextapi}`
 This will launch the development container locally with volumes mapped to source on the host.
 
 
-### `make local-docker-repo`
-Start a local docker repo (used to serve images for Kubernetes in local configuration)
+### `make docker-repo-local`
+Starts a docker repo listening on localhost:5000 that is connected to local storage (used for local development).
 
-### `make deploy-local`
-Push all of the docker images to the local docker repo started with `make local-docker-repo`. This is only required for local kubernetes deployment.
+### `make docker-repo-gcs`
+Starts a docker repo listening on localhost:5000 that is connected to GCS storage. This is also what's configured in the Kubernetes config files. (Which I probably shouldn't have checked in)
 
 
-### `make kube-up`
-Bring up all of the kubernetes replicationControllers and services.
+### `make kube-up-services`
+Bring up kubernetes services (static, vnextapi, goapi). `make kube-down-services` is the inverse.
 
-### `make kube-down`
-Bring down all of the kubernetes replicationControllers and services. (This doesn't kill all docker containers, not sure if I'm doing something wrong...)
+### `make kube-up-controllers`
+Bring up kubernetes replication controllers (static, vnextapi, goapi). `make kube-down-controllers` is the inverse.
 
 
 ## How to Deploy
 
 1. Bring up the docker registry
 2. Push the docker images to the docker registry
-3. Bring up the other helping services
-4. Turn on the replication controllers for all of them
+3. Create kube services.
+4. Turn up kube replication controllers
 
 ## Notes
 
