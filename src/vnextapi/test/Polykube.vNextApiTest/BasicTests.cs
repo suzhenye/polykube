@@ -13,7 +13,7 @@ using Microsoft.Framework.Runtime.Infrastructure;
 using System.Linq;
 using System;
 
-// https://github.com/aspnet/Testing/wiki/How-to-create-test-projects
+// https://github.com/bricelam/EntityFramework/commit/e3d7962ca8a11b1b54efe242c0a3791b70aa4edc
 
 namespace Polykube.vNextApiTest
 {   
