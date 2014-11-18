@@ -1,5 +1,8 @@
 {
     "dependencies": {
+        "Polykube.vNextApi": "",
+        "Microsoft.AspNet.TestHost": "1.0.0-beta1",
+        "Newtonsoft.Json":  "6.0.5",
         "Xunit.KRunner": "1.0.0-beta1"
     },
     "commands": {
