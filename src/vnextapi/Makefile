@@ -10,4 +10,4 @@ build:
 	bash -c "source /root/.kre/kvm/kvm.sh; cd Polykube.vNextApi; kpm --verbose restore"
 
 run: build
-	bash -c "source /root/.kre/kvm/kvm.sh; cd Polykube.vNextApi; ./k_daemon.sh nowin"
+	bash -c "source /root/.kre/kvm/kvm.sh; cd Polykube.vNextApi; ./k_daemon.sh kestrel"

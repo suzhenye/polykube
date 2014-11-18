@@ -1,10 +1,14 @@
-FROM       polykube/aspvnextbase
+FROM       microsoft/aspnet:1.0.0-beta1
 
 ADD        ./src/vnextapi  /root/polykube/vnextapi
 
 WORKDIR    /root/polykube/vnextapi/
 
-RUN        ["make"]
+RUN        apt-get -qq update && apt-get -qqy install procps \
+           && apt-get clean autoclean && apt-get autoremove -y \
+           && rm -rf /var/lib/{apt,dpkg,cache,log}/
+           
+RUN        make
 
 CMD        ["make", "run"]
 

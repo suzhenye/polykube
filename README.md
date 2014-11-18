@@ -32,8 +32,6 @@ b.com/aspnet/KestrelHttpServer)).
 
 1. `kpm restore` and `NuGet.Config` locations (see `src/vnextapi/Makefile`)
 
-2. Can't get `Kestrel` or `Microsoft.AspNet.Server.WebListener` to work. Only `Nowin` works.
-
 ## Planned Features
 
 1. Service Discovery
