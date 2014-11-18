@@ -1,10 +1,9 @@
 packages/
 obj/
 bin/
+
 *.sln.ide/
+*.suo
 *proj.user
-*.csproj
-*.kproj
-*.sln
 
 Dockerfile
