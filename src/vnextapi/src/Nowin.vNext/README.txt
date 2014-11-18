@@ -1,1 +1,1 @@
-﻿This is sourced from: https://github.com/Alxandr/Nowin.vNext with some modifications for handling server.urls properly for aspnet5.
+This is sourced from: https://github.com/Alxandr/Nowin.vNext with some modifications for handling server.urls properly for aspnet5.

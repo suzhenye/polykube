@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNet.Hosting;
+using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.TestHost;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.DependencyInjection.Fallback;

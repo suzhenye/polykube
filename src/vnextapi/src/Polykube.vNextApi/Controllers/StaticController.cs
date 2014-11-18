@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.AspNet.Mvc;
 using Newtonsoft.Json;
 
