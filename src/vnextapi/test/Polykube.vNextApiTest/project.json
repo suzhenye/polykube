@@ -1,0 +1,13 @@
+{
+    "dependencies": {
+        "Xunit.KRunner": "1.0.0-beta1"
+    },
+    "commands": {
+        "test": "Xunit.KRunner"
+    },
+    "compilationOptions": {
+        "compilationOptions": {
+            "languageVersion": "experimental"
+        }
+    }
+}
