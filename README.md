@@ -27,10 +27,6 @@ b.com/aspnet/KestrelHttpServer)).
 
 4. Investigate static hard-coded routes for ASP.NET 5. I don't know if I like the attribute based routing. It's nice to have an easy mental model. Request comes in, and there's the class which contains the list of routes. Versus searching through all classes accessible and seeing if they have a route attribute.
 
-## Quick features to add
-
-1. Use kubectl
-
 ## Planned Features
 
 1. Service Discovery

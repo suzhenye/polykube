@@ -2,6 +2,8 @@ KUBEROOT = ~/Code/kubernetes
 KUBECFG = $(KUBEROOT)/cluster/kubecfg.sh
 CURDIR = $(shell pwd)
 
+# TODO: replace kubecfg with kubectl
+
 # Not sure if I'm using make correctly since I need .NOTPARALLEL
 # For the all step, I want docket-vnextapi to finish before starting deploy-local.
 # This seems to only work with .NOTPARALLEL, else it starts deploying while still building.
