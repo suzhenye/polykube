@@ -1,5 +1,5 @@
 FROM  google/golang
 
-ADD   ./src/goapi /gopath/src/goapi/
+ADD   ./services/goapi /gopath/src/goapi/
 
 WORKDIR /gopath/src/goapi

@@ -1,7 +1,7 @@
 FROM dockerfile/nginx
 
-ADD ./src/static/sites-enabled  /etc/nginx/sites-enabled
+ADD ./services/static/sites-enabled  /etc/nginx/sites-enabled
 
-ADD ./src/static/www            /root/polykube/static/www
+ADD ./services/static/www            /root/polykube/static/www
 
 RUN chmod +x /root && chmod +x /root/polykube && chmod +x /root/polykube/static

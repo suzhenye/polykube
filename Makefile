@@ -9,6 +9,8 @@ CURDIR = $(shell pwd)
 all:
 	$(error Please see README for usage)
 
+format:
+	find ./ -type f -exec dos2unix --newline {} \;
 
 
 ## Kube helpers
@@ -79,12 +81,12 @@ run-vnextapi:
 
 dev-static:
 	docker run -it -p 20000:80 \
-		-v $(CURDIR)/src/static:/root/polykube/static \
+		-v $(CURDIR)/services/static:/root/polykube/static \
 		-w /root/polykube/static \
 		polykube/static /bin/bash
 dev-goapi:
 	docker run -it -p 20010:80 \
-		-v $(CURDIR)/src/goapi:/gopath/src/goapi \
+		-v $(CURDIR)/services/goapi:/gopath/src/goapi \
 		-w /gopath/src/goapi  \
 		polykube/goapi-dev /bin/bash
 docker-goapi-dev:
@@ -93,6 +95,6 @@ docker-goapi-dev:
 	docker build -t polykube/goapi-dev .
 dev-vnextapi:
 	docker run -it -p 20020:8000 \
-		-v $(CURDIR)/src/vnextapi:/root/polykube/vnextapi \
+		-v $(CURDIR)/services/vnextapi:/root/polykube/vnextapi \
 		-w /root/polykube/vnextapi/ \
 		polykube/vnextapi /bin/bash

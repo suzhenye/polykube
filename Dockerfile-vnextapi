@@ -1,6 +1,6 @@
 FROM       microsoft/aspnet:1.0.0-beta1
 
-ADD        ./src/vnextapi  /root/polykube/vnextapi
+ADD        ./services/vnextapi  /root/polykube/vnextapi
 
 WORKDIR    /root/polykube/vnextapi/
 
