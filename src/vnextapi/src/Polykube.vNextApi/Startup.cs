@@ -8,11 +8,11 @@ namespace Polykube.vNextApi
     public class Startup
     {
         public void ConfigureServices(IServiceCollection services)
-	    {
+        {
             var configuration = new Configuration();
             configuration.AddEnvironmentVariables();
-	        services.AddMvc(configuration);
-	    }
+            services.AddMvc(configuration);
+        }
 
         public void Configure(IApplicationBuilder app)
         {

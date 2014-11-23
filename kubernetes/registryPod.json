@@ -1,0 +1,21 @@
+{
+  "apiVersion": "v1beta1",
+  "kind": "Pod",
+  "id": "registry",
+  "desiredState": {
+    "manifest": {
+      "version": "v1beta1",
+      "id": "registry",
+      "containers": [{
+        "name": "registry",
+        "image": "google/docker-registry",
+        "ports": [{ "name": "registry", "containerPort": 5000 }],
+        "env": [
+            { "key": "GCP_OAUTH2_REFRESH_TOKEN", "value": "1/6PvQsme6855MyOf8rg54vPE48TD0CS-HW_XXunypQmkMEudVrK5jSpoR30zcRFq6", },
+            { "key": "GCS_BUCKET", "value": "polykube-docker-registry", },
+        ]
+      }]
+    }
+  },
+  "labels": { "name": "registry" }
+}
