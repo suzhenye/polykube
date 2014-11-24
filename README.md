@@ -2,8 +2,7 @@
 
 Polykube is a Kubernetes-deployable web service that consists of three microservices:
 
-1. `vnextapi`, which is an [ASP.NET 5](http://www.asp.net/vnext/overview/aspnet-vnext/aspnet-5-overview), [MVC 6 Web API](http://www.asp.net/vnext/overview/aspnet-vnext/create-a-web-api-with-mvc-6) service (hosted by [Kestrel](https://githu
-b.com/aspnet/KestrelHttpServer)).
+1. `vnextapi`, which is an [ASP.NET 5](http://www.asp.net/vnext/overview/aspnet-vnext/aspnet-5-overview), [MVC 6 Web API](http://www.asp.net/vnext/overview/aspnet-vnext/create-a-web-api-with-mvc-6) service (hosted by [Kestrel](https://github.com/aspnet/KestrelHttpServer)).
 2. `goapi` is a simple proof-of-concept service written in [Go](http://golang.org).
 3. `static` is [nginx](http://nginx.org) exposing some static html/js/css content.
 

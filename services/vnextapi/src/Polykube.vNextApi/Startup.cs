@@ -7,6 +7,8 @@ namespace Polykube.vNextApi
 {
     public class Startup
     {
+        private static bool UseStaticRoutes = false;
+
         public void ConfigureServices(IServiceCollection services)
         {
             var configuration = new Configuration();
@@ -16,15 +18,24 @@ namespace Polykube.vNextApi
 
         public void Configure(IApplicationBuilder app)
         {
-            if(false)
+            if(UseStaticRoutes)
             {
-                // Not sure why I can't get static routes to work
                 app.UseMvc(routes =>
                 {
+                    // This doesn't work
                     routes.MapRoute(
                         name: "API v0 Environment",
-                        template: "api/environment/{id?}",
+                        template: "api/environment",
                         defaults: new { controller = "Environment" });
+
+                    /*
+                    This works, but only because of the annotation on the ExampleController class.
+                    
+                    routes.MapRoute(
+                        name: "API v0 Example",
+                        template: "api/example",
+                        defaults: new { controller = "Example" });
+                    */
                 });
             }
             else
