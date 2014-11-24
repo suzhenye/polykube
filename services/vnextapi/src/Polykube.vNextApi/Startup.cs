@@ -7,8 +7,6 @@ namespace Polykube.vNextApi
 {
     public class Startup
     {
-        private static bool UseStaticRoutes = true;
-
         public void ConfigureServices(IServiceCollection services)
         {
             var configuration = new Configuration();

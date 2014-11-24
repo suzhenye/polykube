@@ -1,6 +1,6 @@
 using System;
 using Microsoft.AspNet.Mvc;
-using Polykube.vNextApi.Middleware;
+using Polykube.vNextApi.Filters;
 
 namespace Polykube.vNextApi.Controllers
 {
