@@ -6,33 +6,15 @@ Polykube is a Kubernetes-deployable web service that consists of three microserv
 2. `goapi` is a simple proof-of-concept service written in [Go](http://golang.org).
 3. `static` is [nginx](http://nginx.org) exposing some static html/js/css content.
 
+It currently can be deployed to, at least, Vagrant and Google Cloud.
 
-## Motivations
-
-1. I like deployment orchestration/infrastructure technology.
-
-2. Learn docker, Kubernetes, aspnet5, etc.
-
-
-## Notes to self
-
-0. Determine if Go Api is properly staticly built. There's a warning about getaddrinfo as it is now.
-
-1. Investigate if `kpm pack` adds any benefit (will it build? produce a versioned binary to container-ize separately from the source container?)
-
-2. Revisit minimalistic docker images when Dockerfile2 lands or this patch: https://github.com/docker/docker/pull/8021
-
-3. Document docker-registry strategy for local testing and for prepping for a real cloud deploy
-
-4. Investigate static hard-coded routes for ASP.NET 5. I don't know if I like the attribute based routing. It's nice to have an easy mental model. Request comes in, and there's the class which contains the list of routes. Versus searching through all classes accessible and seeing if they have a route attribute.
 
 ## Planned Features
 
 1. Service Discovery
 2. Sharding support (and addressing)
-3. Tested deployment to Azure (sporadically fails to verify master, sometimes works)
-3. Tested deployment to GCE (fails to verfiy master, has worked once)
-3. Tested deployment to Vagrant (fails to verify master, has never worked)
+3. Tested deployment to Azure (wasn't working in October)
+3. Tested deployment to GCE (works)
 
 
 ## Assumptions
@@ -40,7 +22,21 @@ Polykube is a Kubernetes-deployable web service that consists of three microserv
 The commands in this README assume that you have Kubernetes cloned in `~/Code/kubernetes` and this code cloned in `~/Code/polykube`.
 
 
-## `Makefile`
+## Quick start (example)
+
+This will clone the repo and launch an ASP.NET container linked to the source in the tree.
+You can edit the source in your host machine and then execute `make run` inside the launched docker container to build and run the vnextapi service.
+
+```
+git clone https://github.com/colemickens/polykube
+cd polykube;
+make docker-vnextapi; # builds the vnextapi container
+make dev-vnextapi;    # launches the dev container linked to host source code
+container> make run   # runs `kpm restore` and starts the app on kestrel
+```
+
+
+## Full `Makefile` Information
 
 ### `make docker`
 This will build all of the production service container images. `make docker-{static,goapi,vnextapi}` or invidual builds.
@@ -87,3 +83,13 @@ Docker port | Kube ctrlr | Kube srvc | Internal | Service
       20020 |      30020 |     10020 |     8000 | vnextapi
       20000 |      30000 |     10000 |       80 | static
       20010 |      30010 |     10010 |       80 | goapi
+
+### Revisit Later
+
+0. Determine if Go Api is properly staticly built. There's a warning about getaddrinfo as it is now.
+
+1. Investigate if `kpm pack` adds any benefit (will it build? produce a versioned binary to container-ize separately from the source container?)
+
+2. Revisit minimalistic docker images when Dockerfile2 lands or this patch: https://github.com/docker/docker/pull/8021
+
+4. Investigate static hard-coded routes for ASP.NET 5.
