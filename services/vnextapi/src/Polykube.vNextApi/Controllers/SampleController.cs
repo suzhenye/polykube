@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace Polykube.vNextApi.Controllers
 {
-    public class EnvironmentController : Controller
+    public class SampleController : Controller
     {
         [HttpGet]
         public string Index()

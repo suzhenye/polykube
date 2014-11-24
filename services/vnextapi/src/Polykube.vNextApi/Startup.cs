@@ -7,7 +7,7 @@ namespace Polykube.vNextApi
 {
     public class Startup
     {
-        private static bool UseStaticRoutes = false;
+        private static bool UseStaticRoutes = true;
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -18,32 +18,22 @@ namespace Polykube.vNextApi
 
         public void Configure(IApplicationBuilder app)
         {
-            if(UseStaticRoutes)
+            app.UseMvc(routes =>
             {
-                app.UseMvc(routes =>
-                {
-                    // This doesn't work
-                    routes.MapRoute(
-                        name: "API v0 Environment",
-                        template: "api/environment",
-                        defaults: new { controller = "Environment" });
+                // This doesn't work
+                routes.MapRoute(
+                    name: "API v0 Sample",
+                    template: "api/sample",
+                    defaults: new { controller = "Sample" });
 
-                    /*
-                    This works, but only because of the annotation on the ExampleController class.
-                    
-                    routes.MapRoute(
-                        name: "API v0 Example",
-                        template: "api/example",
-                        defaults: new { controller = "Example" });
-                    */
-                });
-            }
-            else
-            {
-                app.UseMvc();
-            }
-
-            app.UseWelcomePage();
+                // This works, but only because of the annotation on the ExampleController class.                
+                routes.MapRoute(
+                    name: "API v0 Example",
+                    template: "api/example",
+                    defaults: new { controller = "Example" });
+            });
+     
+            //app.UseWelcomePage();
         }
     }
 }
