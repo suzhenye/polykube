@@ -13,7 +13,7 @@
                     "containers": [
                         {
                             "name": "goapi",
-                            "image": "localhost:5000/polykube/goapi",
+                            "image": "myregistry.default.kubernetes.local:5000/polykube/goapi",
                             "ports": [{ "containerPort": 80, "hostPort": 30010 }]
                         }
                     ]

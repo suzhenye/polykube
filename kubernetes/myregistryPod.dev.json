@@ -1,13 +1,13 @@
 {
   "apiVersion": "v1beta1",
   "kind": "Pod",
-  "id": "registry",
+  "id": "myregistry",
   "desiredState": {
     "manifest": {
       "version": "v1beta1",
-      "id": "registry",
+      "id": "myregistry",
       "containers": [{
-        "name": "registry",
+        "name": "myregistry",
         "image": "google/docker-registry",
         "ports": [{ "name": "registry", "containerPort": 5000 }],
         "env": [
@@ -17,5 +17,5 @@
       }]
     }
   },
-  "labels": { "name": "registry" }
+  "labels": { "name": "myregistry" }
 }
