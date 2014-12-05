@@ -1,8 +1,6 @@
 KUBEROOT = ~/Code/kubernetes
-KUBECFG = $(KUBEROOT)/cluster/kubecfg.sh
+KUBECTL = $(KUBEROOT)/cluster/kubectl.sh
 CURDIR = $(shell pwd)
-
-# TODO: replace kubecfg with kubectl
 
 # Not sure if I'm using make correctly since I need .NOTPARALLEL
 # For the all step, I want docket-vnextapi to finish before starting deploy-local.
@@ -16,22 +14,32 @@ format:
 
 
 ## Kube helpers
+vagrant-up:
+	cd $(KUBEROOT) && vagrant up
+kube-up:
+	cd $(KUBEROOT) && ./cluster/kube-up.sh
+kube-down:
+	cd $(KUBEROOT) && ./cluster/kube-down.sh
 kube-up-services:
-	$(KUBECFG) -c misc/kubernetes/staticService.dev.json create services
-	$(KUBECFG) -c misc/kubernetes/vnextapiService.dev.json create services
-	$(KUBECFG) -c misc/kubernetes/goapiService.dev.json create services
+	$(KUBECTL) create -f kubernetes/myregistryService.dev.json
+#	$(KUBECTL) create -f kubernetes/staticService.dev.json
+#	$(KUBECTL) create -f kubernetes/vnextapiService.dev.json
+	$(KUBECTL) create -f kubernetes/goapiService.dev.json
 kube-up-controllers:
-	$(KUBECFG) -c misc/kubernetes/staticController.dev.json create replicationControllers
-	$(KUBECFG) -c misc/kubernetes/vnextapiController.dev.json create replicationControllers
-	$(KUBECFG) -c misc/kubernetes/goapiController.dev.json create replicationControllers
+	$(KUBECTL) create -f kubernetes/myregistryPod.dev.json
+#	$(KUBECTL) create -f kubernetes/staticController.dev.json
+#	$(KUBECTL) create -f kubernetes/vnextapiController.dev.json
+	$(KUBECTL) create -f kubernetes/goapiController.dev.json
 kube-down-controllers:
-	$(KUBECFG) rm staticController
-	$(KUBECFG) rm vnextapiController
-	$(KUBECFG) rm goapiController
+	$(KUBECTL) delete pod myregistry
+#	$(KUBECTL) delete replicationController staticController
+#	$(KUBECTL) delete replicationController vnextapiController
+	$(KUBECTL) delete replicationController goapiController
 kube-down-services:
-	$(KUBECFG) delete services/static
-	$(KUBECFG) delete services/vnextapi
-	$(KUBECFG) delete services/goapi
+	$(KUBECTL) delete service myregistry
+#	$(KUBECTL) delete service static
+#	$(KUBECTL) delete service vnextapi
+	$(KUBECTL) delete service goapi
 
 
 ## Used to push docker images to a local repo or a GCS repo, etc
