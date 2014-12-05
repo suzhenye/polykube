@@ -8,3 +8,4 @@ run: build
 
 test:
 	bash -c "source /root/.kre/kvm/kvm.sh; cd test/Polykube.vNextApiTest; k test"
+

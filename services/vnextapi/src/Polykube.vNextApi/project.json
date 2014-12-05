@@ -10,13 +10,10 @@
         "System.Diagnostics.Debug": "4.0.10.0",
         "System.Diagnostics.Tools": "4.0.0.0",
         "System.Globalization": "4.0.10.0",
-        "Newtonsoft.Json": "6.0.5",
-        "Nowin.vNext": ""
+        "Newtonsoft.Json": "6.0.5"
     },
     "commands": {
-        "kestrel": "Microsoft.AspNet.Hosting --server Kestrel --server.urls http://localhost:8000",
-        "nowin": "Microsoft.AspNet.Hosting --server Nowin.vNext --server.urls http://localhost:8000",
-        "winweb": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:8000"
+        "kestrel": "Microsoft.AspNet.Hosting --server Kestrel --server.urls http://localhost:8000"
     },
     "compilationOptions": {
         "compilationOptions": {
