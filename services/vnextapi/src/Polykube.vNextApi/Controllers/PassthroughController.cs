@@ -8,12 +8,11 @@ namespace Polykube.vNextApi.Controllers
     public class PassthroughController : Controller
     {
         [HttpGet]
-        public string Index()
+        public async Task<string> Index()
         {
             var client = new HttpClient();
-            var resp = client.Get("http://goapi.default.kubernetes.local/");
-            var content = resp.ReadAsStringAsync();
-
+            var resp = await client.GetAsync("http://goapi.default.kubernetes.local/");
+            var content = await resp.Content.ReadAsStringAsync();
             return content;
         }
     }

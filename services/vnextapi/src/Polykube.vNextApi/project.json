@@ -19,5 +19,18 @@
         "compilationOptions": {
             "languageVersion": "experimental"
         }
+    },
+    "frameworks": {
+        "aspnet50": {
+            "dependencies": {
+                "System.Net.Http": "4.0.0.0"
+            }
+        },
+        "aspnetcore50": {
+            "dependencies": {
+                "System.Console": "4.0.0.0",
+                "System.Net.Http": "4.0.0.0"
+            }
+        }
     }
 }
