@@ -6,20 +6,27 @@ Polykube is a Kubernetes-deployable web service that consists of three microserv
 2. `goapi` is a simple proof-of-concept service written in [Go](http://golang.org).
 3. `static` is [nginx](http://nginx.org) exposing some static html/js/css content.
 
-It currently can be deployed to, at least, Vagrant and Google Cloud.
+It currently can be deployed to, at least: a local Linux machine with docker, Vagrant and Google Cloud.
 
 
-## Planned Features
+## Features
 
-1. Service Discovery
-2. Sharding support (and addressing)
-3. Tested deployment to Azure (wasn't working in October)
-3. Tested deployment to GCE (works)
+### "Supported"
 
+1. Deployment to "local", "vagrant", and "gce" (google cloud engine).
+2. An example of an ASP.NET 5 MVC 6 service running with Kestrel.
 
-## Assumptions
+### Planned
 
-The commands in this README assume that you have Kubernetes cloned in `~/Code/kubernetes` and this code cloned in `~/Code/polykube`.
+1. Service Discovery (with SkyDNS as-provided-by or on-top-of Kubernetes)
+2. Example of a sharded service
+3. Deployment to Azure
+4. Unit testing for the aspnet5 mvc6 service (when the aspnet5 DI stuff settles)
+5. Switch to rocket as soon as Kubernetes grows support for it
+
+### Looking into...
+
+1. Kubernetes templates (would demonstrate how to do prod/int/dev/etc with kube)
 
 
 ## Quick start (example)
@@ -62,12 +69,30 @@ Bring up kubernetes services (static, vnextapi, goapi). `make kube-down-services
 Bring up kubernetes replication controllers (static, vnextapi, goapi). `make kube-down-controllers` is the inverse.
 
 
-## How to Deploy
+## Deployment
 
-1. Bring up the docker registry
-2. Push the docker images to the docker registry
-3. Create kube services.
-4. Turn up kube replication controllers
+### Vagrant
+
+```
+export KUBERNETES_PROVIDER=vagrant
+make docker
+make docker-repo-local # this will block, open a new term for the next cmds
+make docker-push
+make kube-up-services
+make kube-up-controlllers
+```
+
+### Google Cloud Engine
+
+```
+export KUBERNETES_PROVIDER=gce
+make docker
+make docker-repo-gcs # this will block, open a new term for the next cmds
+make docker-push
+make kube-up-services
+make kube-up-controlllers
+```
+
 
 ## Notes
 
