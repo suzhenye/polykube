@@ -6,17 +6,16 @@ namespace Polykube.vNextApi.Filters
 {
     public class InstrumentingFilter : ActionFilterAttribute
     {
-        private Stopwatch _timer1;
-        private Stopwatch _timer2;
+        private Stopwatch requestTimer;
         
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            _timer1 = Stopwatch.StartNew();
+            requestTimer = Stopwatch.StartNew();
         }
 
         public override void OnActionExecuted(ActionExecutedContext context)
         {
-            var time = _timer1.ElapsedMilliseconds;
+            var time = requestTimer.ElapsedMilliseconds;
             context.HttpContext.Response.Headers.Add(
                 "ActionElapsedTime",
                 new string[] { time.ToString(CultureInfo.InvariantCulture) + " ms" });

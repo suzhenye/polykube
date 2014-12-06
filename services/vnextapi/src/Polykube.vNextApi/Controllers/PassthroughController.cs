@@ -1,6 +1,6 @@
-using System;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
-using Newtonsoft.Json;
 
 namespace Polykube.vNextApi.Controllers
 {
