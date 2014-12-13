@@ -1,21 +1,48 @@
+using Ploeh.AutoFixture;
+using System.Collections.Generic;
+using Newtonsoft.Json;
+using Polykube.vNextApi.Controllers;
 using Xunit;
 
-// https://github.com/bricelam/EntityFramework/commit/e3d7962ca8a11b1b54efe242c0a3791b70aa4edc
+// TODO: aspnet5- Is this is okay? (Not splitting Startup into Configure/ConfigureServices anymore)
+//              - if not, how does one properly get ConfigureServices to play nicely with these tests?
+
+// TODO: aspnet5- Determine why the static routing doesn't work
 
 namespace Polykube.vNextApiTest
-{   
-    public class BasicTests
+{
+    public class BasicTests : IClassFixture<PolyFixture>
     {
-        [Fact]
-        public void TestTruth()
+        private PolyFixture Fixture;
+
+        public BasicTests(PolyFixture fixture)
         {
-            Assert.True(true);
+            Fixture = fixture;
         }
 
-        [Fact(Skip = "Doesn't work")]
-        public async void TestEnvironmentEndpoint()
+        [Fact]
+        public void BasicAutoFixtureTest()
         {
-            Assert.NotNull(null);
+            Fixture fixture = new Fixture();
+            int expectedNumber = fixture.Create<int>();
+            Assert.True(expectedNumber > 0 || expectedNumber <= 0);
+        }
+
+        [Fact]
+        public async void EnvironmentEndpointBasicFunctionality()
+        {
+            var client = Fixture.Server.CreateClient();
+            var environmentVariables = await client.GetStringAsync("/api/environment");
+            var decoded = JsonConvert.DeserializeObject<Dictionary<string, string>>(environmentVariables);
+            Assert.InRange(decoded.Keys.Count, 1, 100);
+        }
+
+        [Fact]
+        public async void StaticEndpointBasicFunctionality()
+        {
+            var client = Fixture.Server.CreateClient();
+            var staticResponse = await client.GetStringAsync("/api/static");
+            Assert.Equal(StaticController.ResponseText, staticResponse);
         }
     }
 }

@@ -4,14 +4,14 @@ using Newtonsoft.Json;
 
 namespace Polykube.vNextApi.Controllers
 {
-    [Route("api/[controller]/{id?}")]
     public class StaticController : BaseController
     {
+        public const string ResponseText = "Hello World";
+
         [HttpGet]
         public string Index()
         {
-            var result = "Hello world.";
-            return result;
+            return ResponseText;
         }
     }
 }

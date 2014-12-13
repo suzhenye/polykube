@@ -1,9 +1,20 @@
 {
     "dependencies": {
+        "AutoFixture":  "3.21.1",
         "Polykube.vNextApi": "",
-        "Microsoft.AspNet.TestHost": "1.0.0-beta1",
-        "Newtonsoft.Json":  "6.0.5",
-        "Xunit.KRunner": "1.0.0-beta1"
+        "Kestrel": "1.0.0-beta2-*",
+        "Microsoft.AspNet.Diagnostics": "1.0.0-beta2-*",
+        "Microsoft.AspNet.Hosting": "1.0.0-beta2-*",
+        "Microsoft.AspNet.Mvc": "6.0.0-beta2-*",
+        "Microsoft.AspNet.Routing": "1.0.0-beta2-*",
+        "Microsoft.AspNet.Server.WebListener": "1.0.0-beta2-*",
+        "Microsoft.AspNet.TestHost": "1.0.0-beta2-*",
+        "Microsoft.Framework.ConfigurationModel.Json": "1.0.0-beta2-*",
+        "System.Diagnostics.Debug": "4.0.10.0",
+        "System.Diagnostics.Tools": "4.0.0.0",
+        "System.Globalization": "4.0.10.0",
+        "Newtonsoft.Json": "6.0.6",
+        "Xunit.KRunner": "1.0.0-beta2-*"
     },
     "commands": {
         "test": "Xunit.KRunner"

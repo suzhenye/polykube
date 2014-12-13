@@ -7,31 +7,35 @@ namespace Polykube.vNextApi
 {
     public class Startup
     {
-        public void ConfigureServices(IServiceCollection services)
+        /*
+        public IServiceCollection ConfigureServices(IServiceCollection services)
         {
             var configuration = new Configuration();
             configuration.AddEnvironmentVariables();
             services.AddMvc(configuration);
+
+            return services;
+
+            // Can't make this work with tests... grah
         }
+        */
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseServices(services => {
+                var configuration = new Configuration();
+                configuration.AddEnvironmentVariables();
+                services.AddMvc(configuration);
+            });
+
             app.UseMvc(routes =>
             {
                 // This doesn't work
                 routes.MapRoute(
-                    name: "API v0 Sample",
-                    template: "api/sample",
-                    defaults: new { controller = "Sample" });
-
-                // This works, but only because of the annotation on the ExampleController class.                
-                routes.MapRoute(
-                    name: "API v0 Example",
-                    template: "api/example",
-                    defaults: new { controller = "Example" });
+                    name: "API v0 Static",
+                    template: "api/static",
+                    defaults: new { controller = "Static" });
             });
-     
-            //app.UseWelcomePage();
         }
     }
 }
