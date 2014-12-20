@@ -19,23 +19,15 @@ namespace Polykube.Frontend
 
         public void Configure(IApplicationBuilder app)
         {
-
 #if THIS_WORKS
             Action<IServiceCollection> action1 = this.ConfigureServices;
             app.UseServices(action1);
+            app.UseMvc();
 #else
             // Am I missing something here?
             app.UseServices(this.ConfigureServices);
+            app.UseMvc();
 #endif
-
-            app.UseMvc(routes =>
-            {
-                // This doesn't work
-                routes.MapRoute(
-                    name: "API v0 Static",
-                    template: "api/static",
-                    defaults: new { controller = "Static" });
-            });
         }
     }
 }
