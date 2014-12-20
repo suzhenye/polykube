@@ -2,9 +2,9 @@
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.TestHost;
 using Microsoft.Framework.Runtime.Infrastructure;
-using Polykube.vNextApi;
+using Polykube.Frontend;
 
-namespace Polykube.vNextApiTest
+namespace Polykube.FrontendTest
 {
     public class PolyFixture
     {

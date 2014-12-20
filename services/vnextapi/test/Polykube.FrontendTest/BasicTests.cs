@@ -1,7 +1,7 @@
 using Ploeh.AutoFixture;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Polykube.vNextApi.Controllers;
+using Polykube.Frontend.Controllers;
 using Xunit;
 
 // TODO: aspnet5- Is this is okay? (Not splitting Startup into Configure/ConfigureServices anymore)
@@ -9,7 +9,7 @@ using Xunit;
 
 // TODO: aspnet5- Determine why the static routing doesn't work
 
-namespace Polykube.vNextApiTest
+namespace Polykube.FrontendTest
 {
     public class BasicTests : IClassFixture<PolyFixture>
     {
@@ -35,14 +35,6 @@ namespace Polykube.vNextApiTest
             var environmentVariables = await client.GetStringAsync("/api/environment");
             var decoded = JsonConvert.DeserializeObject<Dictionary<string, string>>(environmentVariables);
             Assert.InRange(decoded.Keys.Count, 1, 100);
-        }
-
-        [Fact]
-        public async void StaticEndpointBasicFunctionality()
-        {
-            var client = Fixture.Server.CreateClient();
-            var staticResponse = await client.GetStringAsync("/api/static");
-            Assert.Equal(StaticController.ResponseText, staticResponse);
         }
     }
 }

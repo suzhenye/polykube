@@ -1,8 +1,8 @@
 using System;
 using Microsoft.AspNet.Mvc;
-using Polykube.vNextApi.Filters;
+using Polykube.Frontend.Filters;
 
-namespace Polykube.vNextApi.Controllers
+namespace Polykube.Frontend.Controllers
 {
     [InstrumentingFilter]
     public class BaseController : Controller

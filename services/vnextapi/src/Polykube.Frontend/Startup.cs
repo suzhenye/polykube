@@ -1,32 +1,32 @@
+#define THIS_WORKS
+
+using System;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Routing;
 using Microsoft.Framework.ConfigurationModel;
 using Microsoft.Framework.DependencyInjection;
 
-namespace Polykube.vNextApi
+namespace Polykube.Frontend
 {
     public class Startup
     {
-        /*
-        public IServiceCollection ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             var configuration = new Configuration();
             configuration.AddEnvironmentVariables();
             services.AddMvc(configuration);
-
-            return services;
-
-            // Can't make this work with tests... grah
         }
-        */
 
         public void Configure(IApplicationBuilder app)
         {
-            app.UseServices(services => {
-                var configuration = new Configuration();
-                configuration.AddEnvironmentVariables();
-                services.AddMvc(configuration);
-            });
+
+#if THIS_WORKS
+            Action<IServiceCollection> action1 = this.ConfigureServices;
+            app.UseServices(action1);
+#else
+            // Am I missing something here?
+            app.UseServices(this.ConfigureServices);
+#endif
 
             app.UseMvc(routes =>
             {

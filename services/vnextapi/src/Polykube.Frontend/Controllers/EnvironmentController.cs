@@ -2,7 +2,7 @@ using System;
 using Microsoft.AspNet.Mvc;
 using Newtonsoft.Json;
 
-namespace Polykube.vNextApi.Controllers
+namespace Polykube.Frontend.Controllers
 {
     [Route("api/[controller]")]
     public class EnvironmentController : Controller

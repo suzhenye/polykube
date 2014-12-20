@@ -9,13 +9,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		NuGet.Config = NuGet.Config
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Polykube.vNextApi", "src\Polykube.vNextApi\Polykube.vNextApi.kproj", "{FA787F0C-2A27-4262-9D68-08F201401390}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{38A22EF7-B1EE-4581-8274-ACDF5C9C97DF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{54C8D8F2-1512-4FFE-94CD-4237315B2105}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Polykube.vNextApiTest", "test\Polykube.vNextApiTest\Polykube.vNextApiTest.kproj", "{0CB154B4-EF95-4978-8758-DE5B8B17527B}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Polykube.Common", "src\Polykube.Common\Polykube.Common.kproj", "{A5CA8E24-3192-4073-81F3-C15EFD4B9B26}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Polykube.Frontend", "src\Polykube.Frontend\Polykube.Frontend.kproj", "{DA2D152C-7B9D-46EE-895E-A2D0000BD4B5}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Polykube.Prepper", "src\Polykube.Prepper\Polykube.Prepper.kproj", "{582F9984-D56B-4979-BAA9-B5524BB915C4}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Polykube.FrontendTest", "test\Polykube.FrontendTest\Polykube.FrontendTest.kproj", "{1E3EB743-FA38-48A6-BEC2-DDB250CA77FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,20 +27,30 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FA787F0C-2A27-4262-9D68-08F201401390}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FA787F0C-2A27-4262-9D68-08F201401390}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FA787F0C-2A27-4262-9D68-08F201401390}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FA787F0C-2A27-4262-9D68-08F201401390}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0CB154B4-EF95-4978-8758-DE5B8B17527B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0CB154B4-EF95-4978-8758-DE5B8B17527B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0CB154B4-EF95-4978-8758-DE5B8B17527B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0CB154B4-EF95-4978-8758-DE5B8B17527B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5CA8E24-3192-4073-81F3-C15EFD4B9B26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5CA8E24-3192-4073-81F3-C15EFD4B9B26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5CA8E24-3192-4073-81F3-C15EFD4B9B26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5CA8E24-3192-4073-81F3-C15EFD4B9B26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA2D152C-7B9D-46EE-895E-A2D0000BD4B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA2D152C-7B9D-46EE-895E-A2D0000BD4B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA2D152C-7B9D-46EE-895E-A2D0000BD4B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA2D152C-7B9D-46EE-895E-A2D0000BD4B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{582F9984-D56B-4979-BAA9-B5524BB915C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{582F9984-D56B-4979-BAA9-B5524BB915C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{582F9984-D56B-4979-BAA9-B5524BB915C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{582F9984-D56B-4979-BAA9-B5524BB915C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E3EB743-FA38-48A6-BEC2-DDB250CA77FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E3EB743-FA38-48A6-BEC2-DDB250CA77FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E3EB743-FA38-48A6-BEC2-DDB250CA77FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E3EB743-FA38-48A6-BEC2-DDB250CA77FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{FA787F0C-2A27-4262-9D68-08F201401390} = {38A22EF7-B1EE-4581-8274-ACDF5C9C97DF}
-		{0CB154B4-EF95-4978-8758-DE5B8B17527B} = {54C8D8F2-1512-4FFE-94CD-4237315B2105}
+		{A5CA8E24-3192-4073-81F3-C15EFD4B9B26} = {38A22EF7-B1EE-4581-8274-ACDF5C9C97DF}
+		{DA2D152C-7B9D-46EE-895E-A2D0000BD4B5} = {38A22EF7-B1EE-4581-8274-ACDF5C9C97DF}
+		{582F9984-D56B-4979-BAA9-B5524BB915C4} = {38A22EF7-B1EE-4581-8274-ACDF5C9C97DF}
+		{1E3EB743-FA38-48A6-BEC2-DDB250CA77FD} = {54C8D8F2-1512-4FFE-94CD-4237315B2105}
 	EndGlobalSection
 EndGlobal

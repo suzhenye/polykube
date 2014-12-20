@@ -2,7 +2,7 @@ using System.Diagnostics;
 using System.Globalization;
 using Microsoft.AspNet.Mvc;
 
-namespace Polykube.vNextApi.Filters
+namespace Polykube.Frontend.Filters
 {
     public class InstrumentingFilter : ActionFilterAttribute
     {
