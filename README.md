@@ -116,5 +116,3 @@ Docker port | Kube ctrlr | Kube srvc | Internal | Service
 1. Investigate if `kpm pack` adds any benefit (will it build? produce a versioned binary to container-ize separately from the source container?)
 
 2. Revisit minimalistic docker images when Dockerfile2 lands or this patch: https://github.com/docker/docker/pull/8021
-
-4. Investigate static hard-coded routes for ASP.NET 5.
