@@ -24,7 +24,10 @@ namespace Polykube.Frontend
             app.UseServices(action1);
             app.UseMvc();
 #else
-            // Am I missing something here?
+            // Am I missing something here? Removing the #define on line 1 results in:
+            // Error CS0407
+            // 'void Startup.ConfigureServices(IServiceCollection)' has the wrong return type
+            // Startup.cs  31
             app.UseServices(this.ConfigureServices);
             app.UseMvc();
 #endif
