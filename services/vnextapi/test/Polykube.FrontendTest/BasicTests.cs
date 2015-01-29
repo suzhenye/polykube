@@ -1,13 +1,6 @@
-using Ploeh.AutoFixture;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Polykube.Frontend.Controllers;
 using Xunit;
-
-// TODO: aspnet5- Is this is okay? (Not splitting Startup into Configure/ConfigureServices anymore)
-//              - if not, how does one properly get ConfigureServices to play nicely with these tests?
-
-// TODO: aspnet5- Determine why the static routing doesn't work
 
 namespace Polykube.FrontendTest
 {
@@ -18,14 +11,6 @@ namespace Polykube.FrontendTest
         public BasicTests(PolyFixture fixture)
         {
             Fixture = fixture;
-        }
-
-        [Fact]
-        public void BasicAutoFixtureTest()
-        {
-            Fixture fixture = new Fixture();
-            int expectedNumber = fixture.Create<int>();
-            Assert.True(expectedNumber > 0 || expectedNumber <= 0);
         }
 
         [Fact]
