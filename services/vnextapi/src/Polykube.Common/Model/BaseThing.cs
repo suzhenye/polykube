@@ -1,10 +1,4 @@
-﻿using System;
-
-using Bond;
-using Bond.Protocols;
-using Bond.IO.Safe;
-
-namespace Polykube.Common.Model
+﻿namespace Polykube.Common.Model
 {
     [Bond.Schema]
     public class BaseThing
